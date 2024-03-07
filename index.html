@@ -69,6 +69,48 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-test" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/03/07/test/" class="article-date">
+  <time class="dt-published" datetime="2024-03-07T09:25:22.583Z" itemprop="datePublished">2024-03-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>#include<iostream><br>using namespace std;<br>long long a[123456000] &#x3D; {};<br>long long f[123456000] &#x3D; {};<br>static void gf(int q, int w)<br>{<br>    int z1 &#x3D; q, z2 &#x3D; w;<br>    if (q &lt; w)<br>    {<br>        for (; z1 &lt; z2;)<br>        {<br>            for (; z1 !&#x3D; z2; z2 – )<br>            {<br>                if (a[z1] &gt; a[z2])<br>                {<br>                    swap(a[z1], a[z2]);<br>                    z1++;<br>                    break;<br>                }<br>            }<br>            for (; z1 !&#x3D; z2; z1++)<br>            {<br>                if (a[z1] &gt; a[z2])<br>                {<br>                    swap(a[z1], a[z2]);<br>                    z2–;<br>                    break;<br>                }<br>            }<br>        }<br>        gf(q, z1 - 1);<br>        gf(z1 + 1, w);<br>    }<br>}<br>int main()<br>{</p>
+<pre><code>int n; cin &gt;&gt; n;
+for (int i = 1; i &lt;= n; i++)
+&#123;
+    cin &gt;&gt; a[i];
+&#125;
+int q = 1, w = n;
+gf(q, w);
+for (int i = 1; i &lt;= n; i++)
+&#123;
+    cout &lt;&lt; a[i] &lt;&lt; &quot; &quot;;
+&#125;
+</code></pre>
+<p>}</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/03/07/test/" data-id="clth10nxp0000z4uq5jbrb65b" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-枚举" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2024/03/06/%E6%9E%9A%E4%B8%BE/" class="article-date">
@@ -236,6 +278,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2024/03/07/test/">(no title)</a>
+          </li>
         
           <li>
             <a href="/2024/03/06/%E6%9E%9A%E4%B8%BE/">枚举</a>

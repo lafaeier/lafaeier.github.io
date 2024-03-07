@@ -4,13 +4,17 @@
   <meta charset="utf-8">
   
   
-  <title>Archives: 2024 | Hexo</title>
+  <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
+  <meta name="description" content="#includeusing namespace std;long long a[123456000] &#x3D; {};long long f[123456000] &#x3D; {};static void gf(int q, int w){    int z1 &#x3D; q, z2 &#x3D; w;    if (q &lt; w)    {        for (; z1 &lt;">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/archives/2024/index.html">
+<meta property="og:url" content="http://example.com/2024/03/07/test/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="#includeusing namespace std;long long a[123456000] &#x3D; {};long long f[123456000] &#x3D; {};static void gf(int q, int w){    int z1 &#x3D; q, z2 &#x3D; w;    if (q &lt; w)    {        for (; z1 &lt;">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-03-07T09:25:22.583Z">
+<meta property="article:modified_time" content="2024-03-07T09:26:26.122Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -67,90 +71,56 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2024" class="archive-year">2024</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2024/03/07/test/" class="archive-article-date">
-  <time class="dt-published" datetime="2024-03-07T09:25:22.583Z" itemprop="datePublished">Mar 7</time>
+        <section id="main"><article id="post-test" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/03/07/test/" class="article-date">
+  <time class="dt-published" datetime="2024-03-07T09:25:22.583Z" itemprop="datePublished">2024-03-07</time>
 </a>
-      
-    </header>
+    
   </div>
-</article>
-  
+  <div class="article-inner">
     
     
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2024/03/06/%E6%9E%9A%E4%B8%BE/" class="archive-article-date">
-  <time class="dt-published" datetime="2024-03-06T05:29:29.000Z" itemprop="datePublished">Mar 6</time>
-</a>
+    <div class="e-content article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2024/03/06/%E6%9E%9A%E4%B8%BE/">枚举</a>
-    </h1>
-  
+        <p>#include<iostream><br>using namespace std;<br>long long a[123456000] &#x3D; {};<br>long long f[123456000] &#x3D; {};<br>static void gf(int q, int w)<br>{<br>    int z1 &#x3D; q, z2 &#x3D; w;<br>    if (q &lt; w)<br>    {<br>        for (; z1 &lt; z2;)<br>        {<br>            for (; z1 !&#x3D; z2; z2 – )<br>            {<br>                if (a[z1] &gt; a[z2])<br>                {<br>                    swap(a[z1], a[z2]);<br>                    z1++;<br>                    break;<br>                }<br>            }<br>            for (; z1 !&#x3D; z2; z1++)<br>            {<br>                if (a[z1] &gt; a[z2])<br>                {<br>                    swap(a[z1], a[z2]);<br>                    z2–;<br>                    break;<br>                }<br>            }<br>        }<br>        gf(q, z1 - 1);<br>        gf(z1 + 1, w);<br>    }<br>}<br>int main()<br>{</p>
+<pre><code>int n; cin &gt;&gt; n;
+for (int i = 1; i &lt;= n; i++)
+&#123;
+    cin &gt;&gt; a[i];
+&#125;
+int q = 1, w = n;
+gf(q, w);
+for (int i = 1; i &lt;= n; i++)
+&#123;
+    cout &lt;&lt; a[i] &lt;&lt; &quot; &quot;;
+&#125;
+</code></pre>
+<p>}</p>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2024/03/06/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" class="archive-article-date">
-  <time class="dt-published" datetime="2024-03-06T05:18:02.000Z" itemprop="datePublished">Mar 6</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2024/03/06/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">二分查找</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2024/03/05/hello-world/" class="archive-article-date">
-  <time class="dt-published" datetime="2024-03-05T07:33:12.567Z" itemprop="datePublished">Mar 5</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/03/07/test/" data-id="clth10nxp0000z4uq5jbrb65b" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2024/03/05/hello-world/">Hello World</a>
-    </h1>
-  
-
-    </header>
+      
+      
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2024/03/06/%E6%9E%9A%E4%B8%BE/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">枚举</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 
 </section>

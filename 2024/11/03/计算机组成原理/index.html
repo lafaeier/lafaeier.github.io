@@ -1,0 +1,995 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>计算机组成原理 | Hephaestus</title><meta name="author" content="surtr lafael"><meta name="copyright" content="surtr lafael"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="计算机的基本结构计算机的类型嵌入式计算机（embedded computer）：专门为单个功能设计的计算机，集成于各种家电，交通工具等 个人计算机（Pc）：以个人为单位的计算机，支持使用各种软件，主要用于个人用途。在此之下还有台式计算机（desktop computer）和工作站计算机（workstation computer），后者专为工程而生，具有强大的计算和图像显示能力。 服务器（serve">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机组成原理">
+<meta property="og:url" content="https://www.lafael.top/2024/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:site_name" content="Hephaestus">
+<meta property="og:description" content="计算机的基本结构计算机的类型嵌入式计算机（embedded computer）：专门为单个功能设计的计算机，集成于各种家电，交通工具等 个人计算机（Pc）：以个人为单位的计算机，支持使用各种软件，主要用于个人用途。在此之下还有台式计算机（desktop computer）和工作站计算机（workstation computer），后者专为工程而生，具有强大的计算和图像显示能力。 服务器（serve">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/43cb6326cebfed66.jpg">
+<meta property="article:published_time" content="2024-11-02T16:24:08.000Z">
+<meta property="article:modified_time" content="2024-11-02T16:29:13.738Z">
+<meta property="article:author" content="surtr lafael">
+<meta property="article:tag" content="课内基础">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/43cb6326cebfed66.jpg"><link rel="shortcut icon" href="https://raw.githubusercontent.com/lafaeier/PicBed/image/img/微信图片_20240324121443.jpg"><link rel="canonical" href="https://www.lafael.top/2024/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":300,"languages":{"author":"作者: surtr lafael","link":"链接: ","source":"来源: Hephaestus","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '计算机组成原理',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-11-03 00:29:13'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/universe.css"><link rel="stylesheet" href="/css/custom.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-double-row-display@1.00/cardlistpost.min.css"/>
+<style>#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags:before {content:"\A";
+  white-space: pre;}#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags > .article-meta__separator{display:none}</style>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.1.1"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/head.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">34</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">16</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas fa-envelope-open"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/43cb6326cebfed66.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Hephaestus"><span class="site-name">Hephaestus</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas fa-envelope-open"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">计算机组成原理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-11-02T16:24:08.000Z" title="发表于 2024-11-03 00:24:08">2024-11-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-11-02T16:29:13.738Z" title="更新于 2024-11-03 00:29:13">2024-11-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">14.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>45分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="计算机组成原理"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="计算机的基本结构"><a href="#计算机的基本结构" class="headerlink" title="计算机的基本结构"></a>计算机的基本结构</h1><h2 id="计算机的类型"><a href="#计算机的类型" class="headerlink" title="计算机的类型"></a>计算机的类型</h2><p>嵌入式计算机（embedded computer）：专门为单个功能设计的计算机，集成于各种家电，交通工具等</p>
+<p>个人计算机（Pc）：以个人为单位的计算机，支持使用各种软件，主要用于个人用途。在此之下还有台式计算机（desktop computer）和工作站计算机（workstation computer），后者专为工程而生，具有强大的计算和图像显示能力。</p>
+<p>服务器（server）和企业系统（enterprise system）由许多用户共用的计算机，通过网络连接</p>
+<p>超级计算机（super computer）和网格计算机（grid computer）</p>
+<h2 id="功能部件"><a href="#功能部件" class="headerlink" title="功能部件"></a>功能部件</h2><p><img src="https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006170629.png" alt=""></p>
+<p>五大元件：输入设备，输出设备，存储器，ALU，控制器（合成处理器）</p>
+<h3 id="存储器："><a href="#存储器：" class="headerlink" title="存储器："></a>存储器：</h3><p>分为主存和辅助存储器。</p>
+<h4 id="主存"><a href="#主存" class="headerlink" title="主存"></a>主存</h4><p>主存为RAM，更快的RAM被称为高速缓存，与处理器紧密联系，用于存储指令以及提高指令运行速度。</p>
+<p>主存由大量半导体存储单元组成</p>
+<h4 id="辅助存储器（secondary-storage）"><a href="#辅助存储器（secondary-storage）" class="headerlink" title="辅助存储器（secondary storage）"></a>辅助存储器（secondary storage）</h4><p>包括磁盘，光盘和闪存设施，</p>
+<h4 id="运算器"><a href="#运算器" class="headerlink" title="运算器"></a>运算器</h4><p>包含ALU和寄存器</p>
+<p>寄存器的速度大于高速缓存</p>
+<h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><p><img src="https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006170708.png" alt=""></p>
+<p>主存一般存储程序，当需要执行程序时，<strong>程序计数器（PC）</strong> 指向要执行的程序，并将此程序发向存储器，以读信号读出寻找的程序，读出后装入寄存器 <strong>指令寄存器（IR）</strong>， 以便直接解释以及执行。</p>
+<p>pc指向下一个指令-&gt;读取存储器中的指令-&gt;存储到IR-&gt;加载到ALU计算-&gt;运算结果存取在寄存器中-&gt;写入存储器。</p>
+<p>补充：处理器中存在MDR与MAR，分别起传递数据（data）和地址的作用。故又有流程：pc指向下一个程序—-将此指令发送至MAR（pc指向的指令地址）———MAR将指令发送到主存——-主存按指令提取到pc指向的指令——传送到MDR（将指令转化为二进制数据）——-数据传递到IR——-IR转化为可执行的指令（以load为例，即加载数据到指定位置）———指令传递到MAR———-到主存拿到数据———-传递到MDR———传递到处理器寄存器中。</p>
+<h3 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h3><p>用于暂停程序的运行，处理器执行终端服务程序（interrupt-servicr routine）并将处理器的状态信息存储到存储器，恢复时载入。中断只能在IR当前执行的指令完成后进行。</p>
+<h2 id="数的表示及算数运算"><a href="#数的表示及算数运算" class="headerlink" title="数的表示及算数运算"></a>数的表示及算数运算</h2><p>原码 反码 补码</p>
+<p>正数在加法运算中不需要改为补码，在减法运算中作为减数需要变为补码。负数在减法运算中作为被减数需要变为1次补码，减数则需要两次，即变为对应的正数。</p>
+<h3 id="溢出：同号补码相加溢出，反之不会"><a href="#溢出：同号补码相加溢出，反之不会" class="headerlink" title="溢出：同号补码相加溢出，反之不会"></a>溢出：同号补码相加溢出，反之不会</h3><p>当计算结果出现颠倒，例如-6-7得到正数，此时我们称为溢出；若符号位1+1进位，但结果与预期一致，则不是溢出</p>
+<h3 id="浮点数：小数点的位置会根据数值而变化"><a href="#浮点数：小数点的位置会根据数值而变化" class="headerlink" title="浮点数：小数点的位置会根据数值而变化"></a>浮点数：小数点的位置会根据数值而变化</h3><p>电气电子工程师学会IEEE</p>
+<h2 id="并行"><a href="#并行" class="headerlink" title="并行"></a>并行</h2><p>指令级并行：在执行指令的同时加载指令</p>
+<p>多核（core）处理器：在一个芯片上放置多个处理单元</p>
+<p>多处理器：存在多个处理器，每个处理器又包含多个核。</p>
+<h2 id="历史"><a href="#历史" class="headerlink" title="历史"></a>历史</h2><h3 id="第一代"><a href="#第一代" class="headerlink" title="第一代"></a>第一代</h3><p>真空管</p>
+<h3 id="第二代"><a href="#第二代" class="headerlink" title="第二代"></a>第二代</h3><p>晶体管</p>
+<h3 id="第三代"><a href="#第三代" class="headerlink" title="第三代"></a>第三代</h3><p>集成电路</p>
+<h3 id="第四代"><a href="#第四代" class="headerlink" title="第四代"></a>第四代</h3><p>AVSL超大规模集成电路</p>
+<h1 id="算数运算"><a href="#算数运算" class="headerlink" title="算数运算"></a>算数运算</h1><h2 id="有符号数加减法"><a href="#有符号数加减法" class="headerlink" title="有符号数加减法"></a>有符号数加减法</h2><p>全加器（full adder FA）</p>
+<h3 id="行波进位加法器（ripple-carry-adder）"><a href="#行波进位加法器（ripple-carry-adder）" class="headerlink" title="行波进位加法器（ripple-carry adder）"></a>行波进位加法器（ripple-carry adder）</h3><h4 id="最低有效位（LSB）"><a href="#最低有效位（LSB）" class="headerlink" title="最低有效位（LSB）"></a>最低有效位（LSB）</h4><p>用于反码加1得到补码</p>
+<h4 id="单位"><a href="#单位" class="headerlink" title="单位"></a>单位</h4><p><img src="https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006170757.png" alt=""></p>
+<p>全加器如图，有进位输入及进位输出，输入两位以得到加法结果。</p>
+<h4 id="级联"><a href="#级联" class="headerlink" title="级联"></a>级联</h4><p><img src="https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006170819.png" alt=""></p>
+<p>由此得到了k个n为加法器的级联，即行波进位加法器。</p>
+<p><img src="https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006170840.png" alt=""></p>
+<p>其中，每个全加器都可控制加法与剑法输入。</p>
+<h2 id="快速加法器设计"><a href="#快速加法器设计" class="headerlink" title="快速加法器设计"></a>快速加法器设计</h2><h3 id="超前进位加法"><a href="#超前进位加法" class="headerlink" title="超前进位加法"></a>超前进位加法</h3><p><img src="https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006170920.png" alt=""></p>
+<p>此公式推出得到进位的公式，可由前一个进位和G_i和P_i得到，两者分别称为生成函数和传播函数。依次带入C_i，可得到</p>
+<p><img src="https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006171006.png" alt=""></p>
+<p>于是，每一位的进位输出和输入都能够快速完成了</p>
+<h4 id="单位-1"><a href="#单位-1" class="headerlink" title="单位"></a>单位</h4><p><img src="https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006171050.png" alt=""></p>
+<p>其基本单位如上：</p>
+<p>每个单位的G与P都可同步算出，记为一次门延迟；带入计算进位输出的式子，可得所有进位在三个门延迟内完成；和需要进位信息，因此需要4个门延迟后得到；</p>
+<h4 id="整体"><a href="#整体" class="headerlink" title="整体"></a>整体</h4><p><img src="https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006171114.png" alt=""></p>
+<p>如上图，扩展得到4位超前进位加法器</p>
+<h4 id="级联-1"><a href="#级联-1" class="headerlink" title="级联"></a>级联</h4><p><img src="https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006171156.png" alt=""></p>
+<p>8个4位超前进位加法器级联得到32位超前进位加法器。该加法器的G与P也是同步计算的，故得到所有的进位信息需要3+（8-1）*2=17个门延迟，而和需要17+1=18个门延迟。</p>
+<h4 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h4><p><img src="https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006171231.png" alt=""></p>
+<p>以相同的方式组装得到16位超前进位加法器</p>
+<p><img src="https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006171309.png" alt=""></p>
+<p>由此公式得到，生成$P^<code>,G^</code>$需要两个和三个门延迟，子元件的$P^<code>,G^</code>$构成了大元件的P,G，故得到所有的进位需要5个门延迟。要得到和$s^{15}$，需要其进位输入，相较于c_12此处晚了两个门延迟（求并于且），得到进位输入后再过一个门延迟得到和。</p>
+<p>故需要5个门延迟得到进位和8个门延迟得到和</p>
+<h2 id="无符号数乘法"><a href="#无符号数乘法" class="headerlink" title="无符号数乘法"></a>无符号数乘法</h2><h3 id="陈列"><a href="#陈列" class="headerlink" title="陈列"></a>陈列</h3><h3 id="阵列乘法器"><a href="#阵列乘法器" class="headerlink" title="阵列乘法器"></a>阵列乘法器</h3><p><img src="https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006171427.png" alt=""></p>
+<p>乘法原理：根据1/0得到加数，再进位进行加法。</p>
+<h4 id="单位-2"><a href="#单位-2" class="headerlink" title="单位"></a>单位</h4><p><img src="https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006171504.png" alt=""></p>
+<p>使用全加器（FA），q_i为乘数，m_j为被乘数，二者不变而在阵列中传递。进位输入输出是ldx了，向下传递最高位的进位输出</p>
+<h4 id="整体-1"><a href="#整体-1" class="headerlink" title="整体"></a>整体</h4><p><img src="https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006171536.png" alt=""></p>
+<p>斜向传递的是被乘数，横向贯穿的是乘数。</p>
+<p>从横向上：每个单元交流进位；</p>
+<p>纵向上：每个单位将最高有效位的进位传递到下一组加法，将每次进位产生的单独一位传下</p>
+<h3 id="（注）顺序电路乘法器"><a href="#（注）顺序电路乘法器" class="headerlink" title="（注）顺序电路乘法器"></a>（注）顺序电路乘法器</h3><h4 id="整体-2"><a href="#整体-2" class="headerlink" title="整体"></a>整体</h4><p><img src="https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006171631.png" alt=""></p>
+<p>C储存最高有效位的进位，寄存器A记载每次加法的和，乘数Q记载乘数，这三个元件一体，每次向右移位。控制序列发生器检测Q中的第一个元素，为一则进行加法，得到各个数据然后移位；为0则不进行加法，但是仍要移位。进行n次后就得到了乘法结果。</p>
+<p><img src="https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006171701.png" alt=""></p>
+<p>由上图可知：</p>
+<p>检测为1，加法启动，然后移位，最高有效位未产生进位，c为0；</p>
+<p>检测为1，加法启动，c进为1，然后移位；</p>
+<p>检测为0，不加，移位；</p>
+<p>检测为1，加法启动，移位。</p>
+<p>完成；</p>
+<h2 id="有符号数乘法"><a href="#有符号数乘法" class="headerlink" title="有符号数乘法"></a>有符号数乘法</h2><h3 id="Booth算法"><a href="#Booth算法" class="headerlink" title="Booth算法"></a>Booth算法</h3><p><img src="https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006171729.png" alt=""></p>
+<p>将乘数转化为booth格式，遇到-1即将被乘数转化为补码，遇到+1则保持不变。乘数右侧补零，中间值按符号扩位</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>0</th>
+<th>1</th>
+<th>1</th>
+<th>0</th>
+<th>1</th>
+<th>1</th>
+<th>1</th>
+<th>_0_</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+1</td>
+<td>0</td>
+<td>-1</td>
+<td>+1</td>
+<td>0</td>
+<td>0</td>
+<td>-1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>设被乘数为0110011，则</p>
+<hr>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th>0</th>
+<th>1</th>
+<th>1</th>
+<th>0</th>
+<th>0</th>
+<th>1</th>
+<th>1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>+1</td>
+<td>0</td>
+<td>-1</td>
+<td>+1</td>
+<td>0</td>
+<td>0</td>
+<td>-1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>符号位</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>忽略最高有效位的进位。</p>
+<p>得到的位正值，故不需要求补，反之需要求补码</p>
+<h2 id="快速乘法"><a href="#快速乘法" class="headerlink" title="快速乘法"></a>快速乘法</h2><h3 id="乘数位偶重编码"><a href="#乘数位偶重编码" class="headerlink" title="乘数位偶重编码"></a>乘数位偶重编码</h3><p>对booth格式的乘数进行重编码</p>
+<p>要求乘数是4的倍数，转换规则如下</p>
+<ol>
+<li><p>先转换为booth</p>
+</li>
+<li><p>再使用下表再次进行缩少一半的转换</p>
+</li>
+</ol>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>booth（i+1）</th>
+<th>booth（i）</th>
+<th>乘数位偶重编码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>-1</td>
+<td>-1</td>
+</tr>
+<tr>
+<td>0</td>
+<td>+1</td>
+<td>+1</td>
+</tr>
+<tr>
+<td>-1</td>
+<td>0</td>
+<td>-2</td>
+</tr>
+<tr>
+<td>+1</td>
+<td>0</td>
+<td>+2</td>
+</tr>
+<tr>
+<td>-1</td>
+<td>+1</td>
+<td>-1</td>
+</tr>
+<tr>
+<td>+1</td>
+<td>-1</td>
+<td>+1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>给出例子，每次乘法向前进两位</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th>0</th>
+<th>1</th>
+<th>1</th>
+<th>0</th>
+<th>1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>0</td>
+<td></td>
+<td>-1</td>
+<td></td>
+<td>-2</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="求和项的进位保留加法"><a href="#求和项的进位保留加法" class="headerlink" title="求和项的进位保留加法"></a>求和项的进位保留加法</h3><p><img src="https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006171913.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006171932.png" alt=""></p>
+<p>可通过模拟手动求和来推断行波进位阵列</p>
+<p><img src="https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006172038.png" alt=""></p>
+<p>将同时求和位数加到了3而已</p>
+<h3 id="使用3-2简化器的求和项加法树"><a href="#使用3-2简化器的求和项加法树" class="headerlink" title="使用3-2简化器的求和项加法树"></a>使用3-2简化器的求和项加法树</h3><p><img src="https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006172111.png" alt=""></p>
+<p>即将$6*6$位的乘法每项求和，简化为对每三项求和（直接相加，不再计算）与进位，再组合得到答案。大部分步骤可以同时进行</p>
+<p><img src="https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006172207.png" alt=""></p>
+<h3 id="使用4-2简化器的求和项加法树"><a href="#使用4-2简化器的求和项加法树" class="headerlink" title="使用4-2简化器的求和项加法树"></a>使用4-2简化器的求和项加法树</h3><p>没讲</p>
+<h2 id="整数除法"><a href="#整数除法" class="headerlink" title="整数除法"></a>整数除法</h2><p>整体上使用左移的思想</p>
+<h3 id="恢复除法"><a href="#恢复除法" class="headerlink" title="恢复除法"></a>恢复除法</h3><p><img src=https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006172236.png style="zoom:67%;" /></p>
+<p>恢复除法的核心思想是若进行计算，则再进行一次运算以得到原数。</p>
+<p>增加一位表示符号</p>
+<p><img src=https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006172621.png alt="image-20240918163725017" style="zoom:67%;" /><br>把除法试想为减法，若被减数大于减数，则取一进行减法，反之得到原数之后取零。</p>
+<h4 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h4><ol>
+<li><p>A，Q左移一位</p>
+</li>
+<li><p>A减去M，结果放回A</p>
+</li>
+<li><p>若A的符号为1（A&lt;M），上商取0，将M加回到A以得到A；否则商取为1，不再恢复。</p>
+</li>
+</ol>
+<h3 id="（注）不恢复除法"><a href="#（注）不恢复除法" class="headerlink" title="（注）不恢复除法"></a>（注）不恢复除法</h3><p>M，A增加一位表示符号</p>
+<p><img src=https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006172832.png></p>
+<h4 id="步骤-1"><a href="#步骤-1" class="headerlink" title="步骤"></a>步骤</h4><ol>
+<li><p>若A的符号为0，则左移后A-M；反之左移后A+M</p>
+</li>
+<li><p>得到新的A的值后，若A的符号为0，商取为1；反之为0</p>
+</li>
+</ol>
+<h2 id="浮点数及其运算"><a href="#浮点数及其运算" class="headerlink" title="浮点数及其运算"></a>浮点数及其运算</h2><p>分为单精度和双精度</p>
+<p><img src=https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006172929.png><br><img src=https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006173007.png></p>
+<p>均有三部分：</p>
+<h3 id="符号位S"><a href="#符号位S" class="headerlink" title="符号位S"></a>符号位S</h3><h3 id="余数"><a href="#余数" class="headerlink" title="余数"></a>余数</h3><p>$E^<code>=E+127（单精度），E^</code>$为无符号数，+127是为了方便区分正负数的大小，注：对n位的余数部分，+的值为$2^{n-1}-1$。</p>
+<p>$E^`$的范围是$0~2^n-1$，两个断端点值是特殊值，E的范围是$-2^{n-1}+1~2^{n-1}$，两个端点值同样是特殊值，一般不会取该值</p>
+<h3 id="尾数M"><a href="#尾数M" class="headerlink" title="尾数M"></a>尾数M</h3><p>一般情况下值为1.M</p>
+<p>表示范围是$1.0000…~2-2^{-23}$</p>
+<h3 id="特殊值"><a href="#特殊值" class="headerlink" title="特殊值"></a>特殊值</h3><p>当$E^`=0,M=0$时表示值为0</p>
+<p>当$E^`=0,M!=0$时表示+-0.M \cdot 2^{-126}，比最小值0还小，表示下溢</p>
+<p>当$E^`=255,M=0$时表示无穷</p>
+<p>当$E^`=255,M！=0$时比无穷还大，表示上溢</p>
+<h3 id="加减乘除"><a href="#加减乘除" class="headerlink" title="加减乘除"></a>加减乘除</h3><p><img src=https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006173231.png></p>
+<h3 id="保护位与截取"><a href="#保护位与截取" class="headerlink" title="保护位与截取"></a>保护位与截取</h3><p>在计算过程中，会扩展计算位数，称为保护位</p>
+<h4 id="截断"><a href="#截断" class="headerlink" title="截断"></a>截断</h4><p>保护位的值全部抛弃，不产生影响</p>
+<h4 id="冯诺依曼舍入"><a href="#冯诺依曼舍入" class="headerlink" title="冯诺依曼舍入"></a>冯诺依曼舍入</h4><p>若保护位中有1，则结果的最小有效位取1</p>
+<h4 id="舍入"><a href="#舍入" class="headerlink" title="舍入"></a>舍入</h4><p>保护位的最高有效位为1，则结果的最低有效位加1</p>
+<h3 id="加减操作的实现"><a href="#加减操作的实现" class="headerlink" title="加减操作的实现"></a>加减操作的实现</h3><p><img src=https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006173856.png></p>
+<h1 id="存储器系统（注意各元件与方法之间的比较）"><a href="#存储器系统（注意各元件与方法之间的比较）" class="headerlink" title="存储器系统（注意各元件与方法之间的比较）"></a>存储器系统（注意各元件与方法之间的比较）</h1><h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h2><ol>
+<li>存储器分为内部存储与外部存储，内存包含主存，快速缓存，寄存；外存包括磁盘等</li>
+</ol>
+<h3 id="主存组织架构"><a href="#主存组织架构" class="headerlink" title="主存组织架构"></a>主存组织架构</h3><p>主存由许多个承载位（bit）的单元构成，多个bit（通常数目是固定的）构成了字</p>
+<p>字长：字中包含的bit数目</p>
+<p>为得到具体数据，引入地址。地址反映了字的物理地点</p>
+<h3 id="主存访问顺序"><a href="#主存访问顺序" class="headerlink" title="主存访问顺序"></a>主存访问顺序</h3><h4 id="大字节分配"><a href="#大字节分配" class="headerlink" title="大字节分配"></a>大字节分配</h4><p><img src=https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006174010.png></p>
+<p>大字节靠右，自小到大</p>
+<h4 id="小字节分配"><a href="#小字节分配" class="headerlink" title="小字节分配"></a>小字节分配</h4><p><img src=https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006174023.png></p>
+<p>大字节靠左，自大到小</p>
+<h3 id="主存交互"><a href="#主存交互" class="headerlink" title="主存交互"></a>主存交互</h3><p><img src=https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006174047.png></p>
+<p><img src=https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006174106.png></p>
+<p>结合第一章的MAR,MDR理解</p>
+<h4 id="读操作"><a href="#读操作" class="headerlink" title="读操作"></a>读操作</h4><p>将特定内存的信息副本加载到CPU</p>
+<ol>
+<li><p>CPU将所需信息的地址加载到MAR并将R/ \overline{W}置为1.</p>
+</li>
+<li><p>内存将地址中的信息通过data线发送给CPU，并发送MFC信号</p>
+</li>
+<li><p>当CPU检测到MFC时，将data中的数据加载到MDR</p>
+</li>
+</ol>
+<h4 id="写操作"><a href="#写操作" class="headerlink" title="写操作"></a>写操作</h4><p>将CPU给出的信息以覆写的形式写入内存</p>
+<ol>
+<li><p>将地址加载到MAR，将数据加载到MDR，将R/ \overline{W}置为0</p>
+</li>
+<li><p>当重写完成，内存发送MFC信号</p>
+</li>
+</ol>
+<p>$R/ \overline{W}$：为1时R为1，W为0；为0时R为0，W为1 ；1/0代表是否启用</p>
+<h3 id="特征"><a href="#特征" class="headerlink" title="特征"></a>特征</h3><h4 id="物理特征"><a href="#物理特征" class="headerlink" title="物理特征"></a>物理特征</h4><p>半导体：主存</p>
+<p>磁：磁盘，磁带</p>
+<p>光盘：CD,CD-R,CD-RW,DVD</p>
+<h4 id="存储"><a href="#存储" class="headerlink" title="存储"></a>存储</h4><p>字长：一个字所用bit的数量</p>
+<p>字量：所使用的字的数量</p>
+<h4 id="传输"><a href="#传输" class="headerlink" title="传输"></a>传输</h4><p>内存：data传输的带宽或字长</p>
+<p>外存：一般以字块的形式传输</p>
+<h4 id="访问方式"><a href="#访问方式" class="headerlink" title="访问方式"></a>访问方式</h4><h5 id="顺序访问"><a href="#顺序访问" class="headerlink" title="顺序访问"></a>顺序访问</h5><p>信息以顺序排列在存储器中，访问时需要一个个访问以找到对应的字</p>
+<p>例如：磁带</p>
+<h5 id="随机访问"><a href="#随机访问" class="headerlink" title="随机访问"></a>随机访问</h5><p>任意内存块可以被随机且直接的访问，访问时间与内存排布无关</p>
+<p>例如：RAM</p>
+<h5 id="直接访问"><a href="#直接访问" class="headerlink" title="直接访问"></a>直接访问</h5><p>通过地址直接访问的信息所在的块，然后以顺序访问找到信息</p>
+<p>例如：磁盘</p>
+<h3 id="时长"><a href="#时长" class="headerlink" title="时长"></a>时长</h3><h4 id="访问时长"><a href="#访问时长" class="headerlink" title="访问时长"></a>访问时长</h4><p>提供地址并得到数据的时间</p>
+<p>对RAM：一次读或写操作的时长</p>
+<p>对非RAM：将读写器移动到指定位置的时间</p>
+<h4 id="周期时长"><a href="#周期时长" class="headerlink" title="周期时长"></a>周期时长</h4><p>只用于RAM。表示两个连续的存储器操作开始时刻之间的最小的时间延迟（例如DRAM的重写时长）</p>
+<h4 id="传输速率"><a href="#传输速率" class="headerlink" title="传输速率"></a>传输速率</h4><p>数据传入或传出存储单元的速度</p>
+<h3 id="易失-不易失（Volatile-Nonvolatile）"><a href="#易失-不易失（Volatile-Nonvolatile）" class="headerlink" title="易失/不易失（Volatile/Nonvolatile）"></a>易失/不易失（Volatile/Nonvolatile）</h3><p>易失：断电时，信息会逐渐丢失</p>
+<p>不易失：信息一旦记录，就不会变质，直到故意改变。不需要电力来保持</p>
+<h3 id="可擦写-不可擦写（Erasable-Non-erasable）"><a href="#可擦写-不可擦写（Erasable-Non-erasable）" class="headerlink" title="可擦写/不可擦写（Erasable/Non-erasable）"></a>可擦写/不可擦写（Erasable/Non-erasable）</h3><p>可擦写：存储的信息可以修改</p>
+<p>不可擦写：存储的信息不可修改</p>
+<h2 id="RAM-半导体随机存储器"><a href="#RAM-半导体随机存储器" class="headerlink" title="RAM(半导体随机存储器)"></a>RAM(半导体随机存储器)</h2><h3 id="SRAM（静态存储器）"><a href="#SRAM（静态存储器）" class="headerlink" title="SRAM（静态存储器）"></a>SRAM（静态存储器）</h3><p>信息存储在锁存器中</p>
+<p><img src=https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006174219.png style="zoom:67%;" /></p>
+<p>图示的T_1为1，且T_2为0时表示存储的信息为1.（两端自然反号）</p>
+<h4 id="读"><a href="#读" class="headerlink" title="读"></a>读</h4><ol>
+<li><p>将字线置为1，使通道打开</p>
+</li>
+<li><p>通过位线b ,b’读取对应的信息</p>
+</li>
+</ol>
+<h4 id="写"><a href="#写" class="headerlink" title="写"></a>写</h4><ol>
+<li><p>将字线置为1，打开通道</p>
+</li>
+<li><p>将b置为1，b‘相反——写入1（位线上的信号由S/W产生）</p>
+</li>
+</ol>
+<h4 id="CMOS的实现"><a href="#CMOS的实现" class="headerlink" title="CMOS的实现"></a>CMOS的实现</h4><p><img src=https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006174301.png style="zoom:67%;" /></p>
+<p><img src=https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006174333.png style="zoom:67%;" /></p>
+<p>视为两个单位的组合，得到了两个反相器</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>如果电源中断然后恢复，锁存器将进入稳定状态，但不一定是同一个状态</p>
+<p>CMOS SRAM 的功耗非常低</p>
+<p>SRAM的访问速度极快</p>
+<h3 id="存储器芯片的内部组织"><a href="#存储器芯片的内部组织" class="headerlink" title="存储器芯片的内部组织"></a>存储器芯片的内部组织</h3><p><img src=https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006174408.png style="zoom:80%;" /></p>
+<p>15个字按行排序，每个的8位按列排序</p>
+<h4 id="读-1"><a href="#读-1" class="headerlink" title="读"></a>读</h4><p>字线选择地址后将对应的信息通过S/W输出</p>
+<h4 id="写-1"><a href="#写-1" class="headerlink" title="写"></a>写</h4><p>将输入的信息按地址写入</p>
+<h4 id="元件"><a href="#元件" class="headerlink" title="元件"></a>元件</h4><h5 id="地址线"><a href="#地址线" class="headerlink" title="地址线"></a>地址线</h5><h5 id="输入-输出线"><a href="#输入-输出线" class="headerlink" title="输入/输出线"></a>输入/输出线</h5><h5 id="R-W"><a href="#R-W" class="headerlink" title="R/W"></a>R/W</h5><h5 id="CS（引脚）"><a href="#CS（引脚）" class="headerlink" title="CS（引脚）"></a>CS（引脚）</h5><p>用于在集成芯片存储系统中选择给定的存储器芯片，被激活时，对应的芯片接受R/W信号，反之不响应</p>
+<p><img src=https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006174450.png style="zoom:67%;" /></p>
+<p>图示为1K × 1的存储器芯片，即10条字线和一条位线。字线分为一半，分别用来选择字和位。</p>
+<p>加上地线，供电线，R/W，CS则共有15条线</p>
+<h3 id="DRAM（动态随机存储器）"><a href="#DRAM（动态随机存储器）" class="headerlink" title="DRAM（动态随机存储器）"></a>DRAM（动态随机存储器）</h3><p><img src=https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006174519.png style="zoom:50%;" /></p>
+<p>信息被存储在了电容C中，但会逐渐泄露，每次读操作会重写内容，且等到其电荷降低到某个阈值时才能读取内容。</p>
+<h4 id="读-2"><a href="#读-2" class="headerlink" title="读"></a>读</h4><ol>
+<li><p>字线置为1，晶体管打开</p>
+</li>
+<li><p>传感放大器检测电荷是否高于某个阈值，若高，则传感器将<strong>位线</strong>的电压提升至满电压以置为1，于是电容被充满，对应于1；反之位线置为0，电容放电</p>
+</li>
+</ol>
+<h4 id="写-2"><a href="#写-2" class="headerlink" title="写"></a>写</h4><ol>
+<li><p>字线置为1</p>
+</li>
+<li><p>位线置为1时表示高电位，置为0时表示低电位</p>
+</li>
+</ol>
+<p>字线为0时通道关闭，状态短暂维持，需要定期刷新</p>
+<h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><p>高密度，低成本</p>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><p>访问时间长，需要定期刷新</p>
+<h4 id="异步动态随机存储器"><a href="#异步动态随机存储器" class="headerlink" title="异步动态随机存储器"></a>异步动态随机存储器</h4><p><img src=https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006174549.png></p>
+<p>如上图，对于一个32M x 8的动态存储器芯片，首先计算地址线的数量$2^{}25=32M$，故需要25个地址接口，对于行数h与列数d，有h+d=25</p>
+<p>如图所示，分配14位用于列地址，分配11位用于行地址。</p>
+<p>注：先RAS启用，地址被加载到行地址寄存器，随后CAS被启用，列被加载到列地址加载器</p>
+<p>由于上述操作的实现是由RAS和CAS信号控制的，称之为异步动态随机存储器</p>
+<h4 id="快速页模式"><a href="#快速页模式" class="headerlink" title="快速页模式"></a>快速页模式</h4><p><img src=https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006174656.png></p>
+<p>以此图为例，当读取行地址操作结束时，存储在行中的数据被其元件的放大器提取出来，我们将这些放大器用作寄存器，读取的行地址数据被放入寄存器中，可以支持连续的列操作读取，如上图的R/W circuits&amp;latchs</p>
+<h4 id="同步随机存储器（SDRAM）"><a href="#同步随机存储器（SDRAM）" class="headerlink" title="同步随机存储器（SDRAM）"></a>同步随机存储器（SDRAM）</h4><p><img src=https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006174713.png style="zoom: 67%;" /></p>
+<p>所有操作和时钟同步</p>
+<ol>
+<li><p>通过模式寄存器写入控制信息选择模式</p>
+</li>
+<li><p>使用缓冲寄存器（R/W锁存器）保存一行的信息，可用来读取连续的行位置，如图中的列地址计数器，在每个时钟上升沿响应，并将递增的列地址对应的数据放到缓冲寄存器上</p>
+</li>
+<li><p>刷新计数器，同样响应时钟上升沿，用来以读操作连续的刷新位信息</p>
+</li>
+</ol>
+<p><img src=https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006174740.png></p>
+<p>如时序图</p>
+<p>时钟连续两次上升沿之间的时间作为一个周期时间</p>
+<p>首先RAS花费一个周期锁存行地址，再使用两个周期激活对应的行。</p>
+<p>接下来CAS花费一个周期锁存列地址，再花费一个周期将数据放到数据线上，并以时钟上升沿为准，地址递增从而使连续的信息传送到数据线上。脉冲长度表示一次操作的最大自增传输次数。因此，一旦一次操作的连续读或写次数超过脉冲长度，就需要重新寻址。</p>
+<h4 id="延迟"><a href="#延迟" class="headerlink" title="延迟"></a>延迟</h4><p>传输块的第一个字所用的时间，是评估存储器传输性能的开销时间，在上述例子中，这个时间是5个周期</p>
+<h4 id="带宽"><a href="#带宽" class="headerlink" title="带宽"></a>带宽</h4><p>每秒传输的字节或位的数量，可以理解为总线的传输速度与其宽度的乘积。与延迟共同决定了存储器的性能</p>
+<h4 id="DDR-SDRAM"><a href="#DDR-SDRAM" class="headerlink" title="DDR SDRAM"></a>DDR SDRAM</h4><p>即双倍数据速率SDRAM，在时钟的上下沿都传输数据</p>
+<h4 id="Rambus存储器"><a href="#Rambus存储器" class="headerlink" title="Rambus存储器"></a>Rambus存储器</h4><p>使用根稍等电路，但使时钟速度提上</p>
+<h3 id="大容量存储器结构"><a href="#大容量存储器结构" class="headerlink" title="大容量存储器结构"></a>大容量存储器结构</h3><h4 id="（注）静态存储器系统"><a href="#（注）静态存储器系统" class="headerlink" title="（注）静态存储器系统"></a>（注）静态存储器系统</h4><p>速度快，成本高，位密度低</p>
+<h5 id="位扩展法"><a href="#位扩展法" class="headerlink" title="位扩展法"></a>位扩展法</h5><p>当芯片的每个存储单元的位数小于存储区字长时，横向扩展</p>
+<p>如用 1 M × 1 位存储芯片组成 1 M × 8 位的存储器</p>
+<p>需要8块1M x1位的芯片，横向放置，每片输出一位，合起来就是8位</p>
+<p><img src=https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006174804.png></p>
+<p>8块芯片共用一个地址线，一次输出8位</p>
+<h5 id="字扩展法"><a href="#字扩展法" class="headerlink" title="字扩展法"></a>字扩展法</h5><p>芯片的容量小于存储器容量，纵向扩展</p>
+<p>如用 256 K × 8 位芯片组成 1 M × 8 的存储器</p>
+<p>首先得到地址线，再得到选片线，选片信号一般需要经过译码器来指向不同的芯片，而地址线则作用于被选中的芯片</p>
+<p><img src=https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006174825.png></p>
+<p>图示为横向的扩展，但无关紧要，稍后给出既需要字扩展又需要位扩展的默认排列</p>
+<h5 id="字位同时扩展"><a href="#字位同时扩展" class="headerlink" title="字位同时扩展"></a>字位同时扩展</h5><p>如用 512K × 8 位的存储器芯片组成 2M × 32 位的存储器</p>
+<p><img src=https://raw.githubusercontent.com/lafaeier/PicBed/image/img/20241006174844.png></p>
+<p>图示为应试步骤，注意$\frac{2\times 1024}{32}\times \frac{32}{8}=4\times 4=16$的格式</p>
+<h5 id="按字节与按字编址"><a href="#按字节与按字编址" class="headerlink" title="按字节与按字编址"></a>按字节与按字编址</h5><p>唯一的不同在于容量的计算以及输出总线的接口数。</p>
+<p>按字节的意思是一条地址数据对应着8bit=1Byte的数据量</p>
+<p>而按字的意思是一条地址数据对应着其他的位的数据量，一般取决于题目</p>
+<h4 id="动态存储器系统"><a href="#动态存储器系统" class="headerlink" title="动态存储器系统"></a>动态存储器系统</h4><p>位密度高，成本低，用电少，集成方式与静态几乎一致</p>
+<h5 id="SIMM单列直插存储器模块"><a href="#SIMM单列直插存储器模块" class="headerlink" title="SIMM单列直插存储器模块"></a>SIMM单列直插存储器模块</h5><h5 id="DIMM双列直插存储器模块"><a href="#DIMM双列直插存储器模块" class="headerlink" title="DIMM双列直插存储器模块"></a>DIMM双列直插存储器模块</h5><p>可待补充？</p>
+<h4 id="存储控制器"><a href="#存储控制器" class="headerlink" title="存储控制器"></a>存储控制器</h4><p>为异步DRAM提供周期刷新的指令，或为其他交互提供指令操作</p>
+<h4 id="刷新开销"><a href="#刷新开销" class="headerlink" title="刷新开销"></a>刷新开销</h4><p>当内部正在刷新时，动态随机存储器不会响应读写的请求<br>静态存储器（SRAM）常用来构成cache或寄存器等，而动态随机存储器（DRAM）常用来构成内存（主存）。</p>
+<h2 id="只读存储器"><a href="#只读存储器" class="headerlink" title="只读存储器"></a>只读存储器</h2><p>存储空间很更大，速度更慢，价格更低。<br>相比起上文提及的两个随机存储器，只读存储器是非易失的。由于其只读的限制，写入操作需要特殊的实现。</p>
+<h3 id="内存层次"><a href="#内存层次" class="headerlink" title="内存层次"></a>内存层次</h3><h3 id="ROM（只读存储器）"><a href="#ROM（只读存储器）" class="headerlink" title="ROM（只读存储器）"></a>ROM（只读存储器）</h3><p>只能在生产时写入数据的存储器称为只读存储器（或ROM），如下图所示。<br><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241009172000.png><br>ROM在生产时根据一个决定存入信息模式的掩码决定存储单元接地与否。晶体管在被字线激活时，若是接地，则位线为置为0，反之为1。<br>由于未设置电容，读取后没有后续操作，且接地与否无法通过电路信号改变。</p>
+<h3 id="PROM（可编程只读存储器）"><a href="#PROM（可编程只读存储器）" class="headerlink" title="PROM（可编程只读存储器）"></a>PROM（可编程只读存储器）</h3><p>不同于ROM，PROM将唯一一次的写入交给用户，用户通过高电流脉冲将存储单元中的熔丝熔断，使其置为1，其他未操作的单元保持原值0。综上，PROM支持一次用户的编程行为。</p>
+<h3 id="EPROM（可擦除可编程只读存储器）"><a href="#EPROM（可擦除可编程只读存储器）" class="headerlink" title="EPROM（可擦除可编程只读存储器）"></a>EPROM（可擦除可编程只读存储器）</h3><p>其结构相似于ROM，但是p点的电路替换为特殊的晶体管，向内注入电荷以形成通路，反之将其暴露在紫外线下以擦除数据。这意味着必须通过物理手段擦除数据，且擦除范围极大，没有办法对单存储单元生效，暴露在紫外线时，全部的信息都会被擦除。</p>
+<h3 id="EEPROM（电可擦除可编程只读存储器）"><a href="#EEPROM（电可擦除可编程只读存储器）" class="headerlink" title="EEPROM（电可擦除可编程只读存储器）"></a>EEPROM（电可擦除可编程只读存储器）</h3><p>需要不同的电压来实现擦除，写入，读取，其他的都是有优点，可以对点式的擦除数据。</p>
+<h3 id="闪存"><a href="#闪存" class="headerlink" title="闪存"></a>闪存</h3><p>密度更高，只需要单一的电压就能实现擦除，读，写。功耗更低</p>
+<h4 id="闪存卡"><a href="#闪存卡" class="headerlink" title="闪存卡"></a>闪存卡</h4><h4 id="闪存驱动器"><a href="#闪存驱动器" class="headerlink" title="闪存驱动器"></a>闪存驱动器</h4><p>相比于硬盘存储驱动器，容量较小，且成本高，但访问速度快，响应时间短，</p>
+<h2 id="直接存储访问（DMA）"><a href="#直接存储访问（DMA）" class="headerlink" title="直接存储访问（DMA）"></a>直接存储访问（DMA）</h2><p>由于在CPU控制下的主存与I/O之间的信息交互需要大量开销，故提供一个专门的部件管理传输过程，称为直接存储器访问（DMA），此部件称为DMA控制器。<br>CPU将控制信息传递给DMA后就撒手不管了，直到DMA发送完成信号。详细见下图：<br><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241009172623.png style="zoom:67%;" /><br>当一块数据从主存传送到另一个磁盘时，CPU访问DMA中的寄存器，将地址和字数信息写入对应的区块，此后DMA将独立执行指定的操作。当传输完毕后，DMA将Done线记录和传输信息。</p>
+<h2 id="存储器层次结构"><a href="#存储器层次结构" class="headerlink" title="存储器层次结构"></a>存储器层次结构</h2><p>由于一个存储器无法做到内存又大，访问速度又快，价格又便宜，密度又大，耗电又低，故尝试把所有的存储器视为一个集合的存储器，称之为存储器层次结构，让他有快速而大的特性，他具有多个存储级别，并确保大部分数据处理器需求保持在 FAST（er） 级别<br><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241009183809.png><br>主高速缓存放置在CPU内部，称之为一级（L1）高速缓存，一个更大的速度稍慢的辅助高速缓存放置在L1和其他存储器之间，称之为二级（L2）高速缓存，也放置在CPU内部。<br>每一级存储器的数据都可来自于上一级。</p>
+<h3 id="buffer（缓冲区）"><a href="#buffer（缓冲区）" class="headerlink" title="buffer（缓冲区）"></a>buffer（缓冲区）</h3><ol>
+<li><p>作为一个更大更慢的存储器的子集存储器</p>
+</li>
+<li><p>对于每一级K，都可作为上一级K+1的缓冲区</p>
+</li>
+<li><p>所有的数据最终都存储在最后一级的存储设备内</p>
+</li>
+<li><p>数据在相邻的两级之间交换</p>
+</li>
+</ol>
+<h2 id="高速缓存（注）"><a href="#高速缓存（注）" class="headerlink" title="高速缓存（注）"></a>高速缓存（注）</h2><p>由层次结构，cache是一个速度极快但大小极小的存储器，他位于CPU及主存之间。术语上有高速缓存块（cache line）以及高速缓存行（cache line）<br>处理器发送读指令时，存储器中的信息加入cache，随后的交互都从cache中获得。当cache存满时，要求必须在cache中腾出一块空间以加入新增的信息。<br><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241009205717.png></p>
+<h3 id="局部性"><a href="#局部性" class="headerlink" title="局部性"></a>局部性</h3><h4 id="时间局部性"><a href="#时间局部性" class="headerlink" title="时间局部性"></a>时间局部性</h4><p>最经执行的指令可能再次执行，加入cache；</p>
+<h4 id="空间局部性"><a href="#空间局部性" class="headerlink" title="空间局部性"></a>空间局部性</h4><p>最近执行的指令附近的指令也可能再次被执行，加入cache；</p>
+<h3 id="高速缓存命中"><a href="#高速缓存命中" class="headerlink" title="高速缓存命中"></a>高速缓存命中</h3><p>CPU本身不知道cache的存在，他只会发送信号，而cache拿取到信号后则会进行判断</p>
+<h4 id="读或写命中（read-or-write-hit）"><a href="#读或写命中（read-or-write-hit）" class="headerlink" title="读或写命中（read or write hit）"></a>读或写命中（read or write hit）</h4><p>当读写操作的对象块存储在cache中时，直接在cache中读写，这称之为读或写命中。</p>
+<h5 id="读操作-1"><a href="#读操作-1" class="headerlink" title="读操作"></a>读操作</h5><p>上文提到，读的字的块在cache中时，直接在cache中读取。</p>
+<h5 id="写操作-1"><a href="#写操作-1" class="headerlink" title="写操作"></a>写操作</h5><p>若块不在cache中，则将块加入cache。</p>
+<h6 id="直接写"><a href="#直接写" class="headerlink" title="直接写"></a>直接写</h6><p>写操作同步于cache和主存之间。</p>
+<h6 id="写回"><a href="#写回" class="headerlink" title="写回"></a>写回</h6><p>写操作只在cache中进行，当这个块移出cache中时，再对主存修改。</p>
+<h3 id="高速缓存失效"><a href="#高速缓存失效" class="headerlink" title="高速缓存失效"></a>高速缓存失效</h3><h4 id="读操作-2"><a href="#读操作-2" class="headerlink" title="读操作"></a>读操作</h4><p>对一个不在cache中字进行读操作，会造成一次读失效，然后包含字的块从主存拷贝到高速缓存中，再把字传入CPU。<br><strong>直接装入（早重启）</strong>：字从主存中取出后直接送往CPU。<br><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241009210438.png style="zoom:67%;" /></p>
+<h3 id="映射"><a href="#映射" class="headerlink" title="映射"></a>映射</h3><p><strong>映射关系</strong>：</p>
+<ol>
+<li>决定块被放置到cache的哪里</li>
+<li>将指向主存的地址，转而指向cache，而不是直接以此访问cache<h4 id="直接映射"><a href="#直接映射" class="headerlink" title="直接映射"></a>直接映射</h4>主存块的编码模128后得到的值作为cache的地址，但128，256等的块会发生冲突，即使此时cache未满。<br><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241009214434.png style="zoom:50%;" /><br>cache中，一行就是一块。<br>在此中，作为访问主存中某个字的地址（共16位），分为三个部分：<strong>标志</strong>，<strong>块</strong>，<strong>字</strong>。<br><strong>标志（t）</strong>：用来写入高速缓存中，且用来决定是哪个能取模到此高速缓存地址的主存块被使用（一般共有32个），还用来比较需要的字是否在此处的cache中<br><strong>块（r）</strong>：用来决定使用高速缓存的哪个部位（取模操作）<br><strong>字（w）</strong>：从16位的块中选择一个CPU需要的字<br>综上，块中的二进制转十进制后取模（取模的数取决于cache能存储多少块），标志决定是哪个同模的块被取，字决定取哪个字。<br>0.9以上的高速缓存命中率对高性能计算机至关重要<br>可以依靠下图理解<br><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241011115600.png><br>下面给出例子<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">示例：考虑一个由 128 行组成的缓存，每行16个词。主存储器有 64K 字。假设</span><br><span class="line">1.主存储器可通过 16 位地址寻址。</span><br><span class="line">总主内存块数=64K/16=4K=4096</span><br><span class="line">故有s=12;</span><br><span class="line">每块有16个字，故需要4位寻字，即为w</span><br><span class="line">128行表示s中留出7位在cache中寻块，即为r</span><br><span class="line">12-7=5，即为t</span><br></pre></td></tr></table></figure>
+<h5 id="评价"><a href="#评价" class="headerlink" title="评价"></a>评价</h5>优势:简单，易于实施，便宜<br>缺点:块的位置固定，如果程序访问映射到同一行的 2 个块反复出现，缓存未命中率非常高<h4 id="相联映射"><a href="#相联映射" class="headerlink" title="相联映射"></a>相联映射</h4>从CPU接收到地址后，到cache中检索，cache中每个块维护一个12位的标志位（是上述的16位地址去除4位字后的结果），若检索到一样的标志，那么代表找到对应的块，再对应到字。<br>若未找到，则扔掉某个块（<strong>替换算法</strong>）（在cache已满时），再将12位的信息写入标志位中，再将块写入。<br>可以避免一个个检索带来的长时间消耗，使用并行检索（<strong>相联检索</strong>）。<br><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241009221831.png style="zoom:50%;" /><br><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/1588438107c380c51efa9fe50d05bbf.png><br>如同上一个例子，12位的s填入t，w用来寻字<h5 id="评判"><a href="#评判" class="headerlink" title="评判"></a>评判</h5>优势:它为选择缓存提供了完全的自由，放置内存块的位置。<br>缺点:检查所有标签所需的复杂电路。<h4 id="组相联映射"><a href="#组相联映射" class="headerlink" title="组相联映射"></a>组相联映射</h4>是直接映射和相联映射的结合，cache被分为大小相同的组（d），每组存放一定数量的块（k），一个主存的块被映射到特定组（直接映射）的任意行（相联映射）。</li>
+</ol>
+<p>由此，我们对主存的块数j取模于组数v。</p>
+<p>二进制的k转十进制后取模（取模的数取决于cache能存储多少块）<strong>得到s</strong>，标志决定是哪个同模的块被取，字决定取哪个字。也就是说，主存中的块的编码决定了要求的字所在的块被存放到cache的哪里，额外的字线会决定取块中的哪个字；而s包含<strong>组数（d）</strong>，以及标志位<strong>s-d</strong>,之后，放入组的块进行相联映射，比较的是标志位。<br>如下图所示<br><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241011192235.png><br>一般的，当k取2时，称之为2路组相联高速缓存。<br>例如：<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">对直接映射的例子而言，我们分配了12作为s的值，选取组相联高速缓存，则有组数d＝64，s－d＝6；</span><br></pre></td></tr></table></figure></p>
+<h5 id="评价-1"><a href="#评价-1" class="headerlink" title="评价"></a>评价</h5><p>优势:解决了直接映射重复弹出cache于与加入cache的问题，开销比相联映射低<br>弊:仍然需要并行比较，比较成本较高</p>
+<h4 id="过时数据"><a href="#过时数据" class="headerlink" title="过时数据"></a>过时数据</h4><p>cache还维护一个有效位，放置过时的数据被利用。当该位为0时，表示此值无效；反之有效。<br>当cache从断电恢复时，其中的所有有效位为0，当一个块被装入cache中时，其有效位置为1。如果需要修改的块在cache中，则其有效位为0。只有当有效位为1时，才能从中提取数据，防止提取到未修改的落时的数据。</p>
+<h5 id="高速缓存一致性"><a href="#高速缓存一致性" class="headerlink" title="高速缓存一致性"></a>高速缓存一致性</h5><p>当主存中的数据需要传回磁盘中的时候，需要将cache中的新的数据写回主存中。在使用写回的系统中，需要如此的方法来保持主存与磁盘数据的有效性与一致性。</p>
+<h3 id="替换算法"><a href="#替换算法" class="headerlink" title="替换算法"></a>替换算法</h3><p>即将块弹出cache中的选择算法。</p>
+<h4 id="LRU（最近最少）"><a href="#LRU（最近最少）" class="headerlink" title="LRU（最近最少）"></a>LRU（最近最少）</h4><p>覆盖的块中最少被访问次数的块将被移除。cache为每个块添加一个2位的技术区域，每次访问发生时，被访问的块的技术区域置为0，反之+1。当存在一个值为3的块时，就将其移除。</p>
+<h4 id="FIFO"><a href="#FIFO" class="headerlink" title="FIFO"></a>FIFO</h4><p>先进先出</p>
+<h4 id="随机"><a href="#随机" class="headerlink" title="随机"></a>随机</h4><p>依靠随机数排除块，有时比LRU有效</p>
+<h4 id="（注）例子"><a href="#（注）例子" class="headerlink" title="（注）例子"></a>（注）例子</h4><p>现在我们假设要执行一个算法，这个算法需要主存，cache的参与：</p>
+<script type="math/tex; mode=display">
+A(0,i)=\frac{A(0,i)}{(\sum_{j=0}^{9}{A(0.j)}/10}</script><p>我们将这个算法拆开来<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">SUM:=<span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> j:=<span class="number">0</span> to <span class="number">9</span> <span class="keyword">do</span></span><br><span class="line">	SUM:=SUM+<span class="built_in">A</span>(<span class="number">0</span>,j)</span><br><span class="line">end</span><br><span class="line">AVG:=SUM/<span class="number">10</span></span><br><span class="line"><span class="keyword">for</span> i:=<span class="number">9</span> down <span class="number">0</span> <span class="keyword">do</span></span><br><span class="line">	<span class="built_in">A</span>(o,i):=<span class="built_in">A</span>(<span class="number">0</span>,i)/AVG</span><br><span class="line">end</span><br></pre></td></tr></table></figure><br>现在来看一眼主存配置和cache配置<br><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241011192132.png><br>我们假设主存中每个块只存储了一个字（你可以理解为按块寻址）（<strong>因为我们的算法只需要一个字的参与，为了方便模拟块的进入与弹出，块中只存放一个字</strong>），块的阵列为4 $\times$ 10，如<strong>右侧内容</strong>所示，但此处排开了，依顺序为00，10，20，30，01，11，21，31，02，，，。cache有8块，同样每个块放置一个字。</p>
+<h5 id="直接映射-1"><a href="#直接映射-1" class="headerlink" title="直接映射"></a>直接映射</h5><p>因为cache有8块，故刘处3位以取模<br>如下图所示(原图太大，此表格中一列表示循环步数+2)<br><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241011193538.png><br>根据伪代码给出的步骤，要将值加入SUM，则访问字所在的块A(0,0)，此块加入cache，地址为000（二进制换算为0）；再访问A(0,1)，地址为100（二进制换算为4）；再访问A(0,2),地址为000，且标识符与A(0,0)不同，故弹出A(0,0)，加入A(0,2)，，，此后可自由推断，<strong>若标识符合，则不弹出，反之弹出</strong>。</p>
+<h5 id="相联映射-1"><a href="#相联映射-1" class="headerlink" title="相联映射"></a>相联映射</h5><p>地址全取<br>如下图<br><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241011194204.png><br>按相联映射的规则，取前图的标识码，依次取。当加入A(0,8)时，由于cache已满，弹出cache中<strong>最久未使用</strong>且最近的A(0,0)弹出，并将A(0,8)加入，到i=1时，由于A(0,9)是最久未被使用的，故替换，此后同理。此处cache的计数位应为三位。</p>
+<h5 id="组相联映射-1"><a href="#组相联映射-1" class="headerlink" title="组相联映射"></a>组相联映射</h5><p>每组2个字，留一位<br>如下图，假设使用4路组相联高速缓存，故cache中只有2组，留最后一位为组别为，前15位为标识位。<br><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241011195242.png><br>由于0打头的块的地址的最后一位都是0，故使用不了第二组了</p>
+<h3 id="性能因素"><a href="#性能因素" class="headerlink" title="性能因素"></a>性能因素</h3><p>cache提高性能的程度依赖于所请求的指令和数据在cache中找到的频繁程度。</p>
+<h4 id="命中率和失效开效"><a href="#命中率和失效开效" class="headerlink" title="命中率和失效开效"></a>命中率和失效开效</h4><p>由于CPU不知道cache的存在，而在存储器层次结构中每 $k_{i-1}$层都可以视为上一层的缓冲池，故可以把整个存储器层次结构视为一个存储器。</p>
+<h5 id="命中"><a href="#命中" class="headerlink" title="命中"></a>命中</h5><p>即所需的数据和指令能在cache中找到，未找到则称之为失效。</p>
+<h5 id="失效开销"><a href="#失效开销" class="headerlink" title="失效开销"></a>失效开销</h5><p>失效发生时，数据以及指令需要从低速存储器装入高速存储器，此额外的时间称之为性能开销，在这段时间内CPU暂停以等待数据，而发生失效时CPU等待数据的总时间称为失效开销。</p>
+<script type="math/tex; mode=display">
+t_avg=hC+(1-h)M</script><p>得到CPU的平均访问时间如上。<br>选取直接装入法或先写入cache再装入CPU会对M产生影响。</p>
+<h6 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h6><p>若有一个计算机，访问cache需要时间r，访问主存需要时间10r；访问cache失效时转去访问主存，此时传输第一个字需要10r，随后的一块中的7个字需要7r，再访问cache需要1r。<br>故有失效开销：M＝19r<br>假设一个程序有100条指令与数据需要传输，命中率是0.95，则有无cache与有cache的时间对比</p>
+<script type="math/tex; mode=display">
+\frac{无cache}{有cache}＝\frac{100\times r}{100（0.95\times r+0.05\times r ）}</script><p>由此，发生失效时计算失效开销，否则按访问cache计算。</p>
+<h4 id="处理器芯片上的高速缓存"><a href="#处理器芯片上的高速缓存" class="headerlink" title="处理器芯片上的高速缓存"></a>处理器芯片上的高速缓存</h4><p>芯片的驱动器与接收器的开销不能忽略，为了减少开销，在CPU上添加两个一级（ $L_1$ ）高速缓存MDR，MAR，分别负责数据以及地址的传输。在某些高性能处理器上，还会存在一个二级($L_2$)高速缓存，其速度比一级慢，但其容量大于一级。<br>这里把二级缓存视为一个较小的主存，那么二级缓存的平均访问时间就是一级缓存的失效开销。假设指令与数据的命中率一致，则：</p>
+<script type="math/tex; mode=display">
+t_{avg}=h_1C_1+(1-h_1)(h_2C_2+(1-h_2)M)</script><p>此中，$h_1$表示一级缓存的命中率，$C_1$表示一级缓存的信息访问时间；$h_2$表示二级缓存的命中率，$C_2$表示二级缓存的信息访问时间；$M$表示二级缓存的失效开销；$h_2C_2+(1-h_2)M$是二级缓存的平均访问时间，也是一级缓存的失效开销。<br>一级缓存的失效率是$1-h_1$,在此基础上，二级缓存的失效率是$(1-h_1)(1-h_2)$，很小。</p>
+<h4 id="其他改进（没讲）"><a href="#其他改进（没讲）" class="headerlink" title="其他改进（没讲）"></a>其他改进（没讲）</h4><h5 id="写缓冲区"><a href="#写缓冲区" class="headerlink" title="写缓冲区"></a>写缓冲区</h5><p>如同主存与磁盘或其他I/O设备之间的控制器DMA，在CPU与主存间也存在一个能提高CPU速度的元件：<strong>写缓冲区</strong>。<br>使用<strong>直接写</strong>时，写的数据内容存入写缓冲区，由于读操作必须先行，CPU需要等待读操作完成才能进行下一个操作，故一般需要与缓冲区中的写数据的主存地址与读比较，有则读取缓冲区中的数据，反之继续读，全部的读操作完成后才开始写操作。<br>使用<strong>写回</strong>时，cache替换的块同样需要写操作，可以把这个块装入缓冲区，其他操作同上。</p>
+<h5 id="预取"><a href="#预取" class="headerlink" title="预取"></a>预取</h5><p>上面提过，当读操作发出时，必须等待其操作完成，此间CPU被暂停。为了避免暂停过程，提出预取：在数据被需要前，就把数据添加到cache中，可以用软件或硬件实现。但后果是，当预取操作后的读失效替换了预取的块时，开销就无故增加了。</p>
+<h5 id="无锁定高速缓存"><a href="#无锁定高速缓存" class="headerlink" title="无锁定高速缓存"></a>无锁定高速缓存</h5><p>使用预取时若与其他操作在cache上发生冲突，代表响应失效，这时cache被锁定，无锁定高速缓存可以在响应失效时继续访问。</p>
+<h2 id="虚拟存储器（注）"><a href="#虚拟存储器（注）" class="headerlink" title="虚拟存储器（注）"></a>虚拟存储器（注）</h2><p>当CPU的可寻址空间大于主存时，一般的主存无法满足CPU的要求，这时就需要虚拟存储器。CPU正在需要的部分存放在主存，其余放置在虚拟存储器（一般是辅助存储器，如磁盘）。当CPU引用了一个数据或指令时，会发出<strong>虚拟地址</strong>（也叫虚拟地址），<strong>存储器管理部件（MMU）</strong>（MMU一般放置在CPU中） 会比较此虚拟地址对应的数据是否在主存中，若在主存中，则转换为物理地址；反之，则通知CPU把数据从磁盘传输到主存中。<br>注：虚拟存储器指虚拟主存，是一种抽象概念，而不是特指磁盘。<br>如下图所示：<br><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241021231127.png></p>
+<h3 id="覆盖（Overlaying）"><a href="#覆盖（Overlaying）" class="headerlink" title="覆盖（Overlaying）"></a>覆盖（Overlaying）</h3><p>是一种用于内存管理的技术，通常在物理内存有限时使用。程序被分成若干部分（称为“段”或“覆盖区”），并且在程序执行时，根据需要动态加载某些段，而不是将整个程序一次性加载到内存中。<br>通过覆盖技术，程序员可以在有限的内存资源下运行大规模程序，但手动管理这些段的调度和加载过程非常繁琐，因此该方法在现代系统中不常用。</p>
+<h3 id="地址转换"><a href="#地址转换" class="headerlink" title="地址转换"></a>地址转换</h3><p>当MMU确定需要把数据从硬盘传输到主存时，把硬盘中的数据规划为<strong>页</strong>（与块对应），页的大小一般为2K到16K个字节。<br>CPU产生的虚拟地址，被解释为<strong>虚拟页号</strong>和<strong>偏移值</strong>（用来在大小为page size的空间中找寻对应的字节或字）。还维护了一个<strong>页表</strong>，用来指示页所在的主存地址，此外，还有一个<strong>页表基址寄存器</strong>，用来存储页表的起始地址；主存按页的大小分划为<strong>页帧</strong>。<br>根据给出的虚拟页号和页表基址寄存器给出的页表的起始地点，可以直接按索引找到这个页在页表中的位置（直接映射），再通过这个位置拿到页在主存中的地址（<strong>页帧</strong>），然后根据偏移值拿到对应页帧中需要的那一个字（或字节）。<br>页表还存在一个控制位，其中有一个数据位表示这个页是否在主存中，这驱使我们根据地址直接找到主存还是将数据从硬盘传到主存；还有一数据位表示主存中的这个页是否被修改过，这驱使我们是否需要根据写回对硬盘中的数据进行修改。<br>如下图：<br><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241021231212.png style="zoom:67%;" /><br>一般的，控制位包含：<strong>有效位</strong>（判断页是否在主存中），<strong>修改位</strong>（判断是否使用写回等策略），<strong>使用位</strong>（判断此位是否使用过，用于替换算法），访问控制位（读，写等操作指示）。<br>注：页表中不存储页号，因为可以按虚拟地址直接访问。</p>
+<h4 id="转换监视缓冲区（TLB）"><a href="#转换监视缓冲区（TLB）" class="headerlink" title="转换监视缓冲区（TLB）"></a>转换监视缓冲区（TLB）</h4><p>MMU中存在转换监视缓冲区，用来存放那些最近被使用的页的表项（因为页表太大而存放在主存中）（相联映射）。当MMU在TLB中搜索页时，若找到，则提供物理地址，否则，在页表中搜索，同时更新TLB。<br>TLB的状态信息需要与页表时刻保持一致，当操作系统修改页表中的内容时，同把TLB中对应的项置为无效。<br>如下图：<br><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241021231945.png style="zoom:67%;" /><br>注：TLB需要空间存储页码，因为不按顺序存储，且需要一一比对。</p>
+<h4 id="页故障（page-fault）"><a href="#页故障（page-fault）" class="headerlink" title="页故障（page fault）"></a>页故障（page fault）</h4><p>当TLB和页表中都没有找到要求的页，表明发生<strong>页故障</strong>，此时要求此页的程序被中断，控制权移交给操作系统，操作系统把请求的页从磁盘拷贝到主存中，此间CPU可能转而去处理其他的程序。传输完毕后，中断的程序恢复运行。<br>若仅在TLB中未找到，<strong>则称为miss</strong></p>
+<h4 id="弹出页"><a href="#弹出页" class="headerlink" title="弹出页"></a>弹出页</h4><p>当主存满了之后，需要弹出主存中的页，即页的替换。</p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><h4 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h4><ol>
+<li>增加可地址空间</li>
+<li>简化重定位：同一个程序可以在任意位置运行</li>
+<li>减少启动程序的时间：并非所有代码和数据都需要全部放置到内存中</li>
+<li>将程序员从覆盖（overlaying）的负担中解放出来<h4 id="内部碎片（缺点）"><a href="#内部碎片（缺点）" class="headerlink" title="内部碎片（缺点）"></a>内部碎片（缺点）</h4>当主存为每个页分配空间时，不能总是刚好分配完，主存最后一点不够一个页的空间也会塞入一个页，显然不是完整的页，称为内部碎片<h4 id="大容量的页的优点"><a href="#大容量的页的优点" class="headerlink" title="大容量的页的优点"></a>大容量的页的优点</h4></li>
+<li>页表大小减小</li>
+<li>传输速度加快<h4 id="大容量的页的缺点"><a href="#大容量的页的缺点" class="headerlink" title="大容量的页的缺点"></a>大容量的页的缺点</h4>内部碎片问题加剧</li>
+</ol>
+<h3 id="做题"><a href="#做题" class="headerlink" title="做题"></a>做题</h3><ol>
+<li>给出page size，表示偏移量，即存储在其中的数据的位数。</li>
+<li>给出映射方法</li>
+<li>给出总的虚拟存储可寻址空间，根据偏移量求出虚拟页号</li>
+<li>根据虚拟页号得到物理页号</li>
+<li>根据物理页号和偏移量得到物理地址</li>
+<li>现在对应到主存与缓存<br>注：所有的加减法都需要转换为二进制再计算</li>
+</ol>
+<h2 id="辅助存储器"><a href="#辅助存储器" class="headerlink" title="辅助存储器"></a>辅助存储器</h2><h3 id="磁盘"><a href="#磁盘" class="headerlink" title="磁盘"></a>磁盘</h3><p>磁盘有读写头，写入时将对应的磁体极化，当读取到变化的磁场时，就代表读取了数据1。<br>磁盘按同心圆分割为多个<strong>磁道</strong>，磁道按圆心角划分为<strong>扇区</strong>，如下所示：<br><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241023191025.png><br>磁盘分单面与双面，单面需要一个读写头，双面两个。</p>
+<h4 id="曼彻斯特编码"><a href="#曼彻斯特编码" class="headerlink" title="曼彻斯特编码"></a>曼彻斯特编码</h4><p>自同步时钟</p>
+<h4 id="温切斯特技术"><a href="#温切斯特技术" class="headerlink" title="温切斯特技术"></a>温切斯特技术</h4><p>盘体和读写头放置在密闭的，去尘的空间内</p>
+<h4 id="读写"><a href="#读写" class="headerlink" title="读写"></a>读写</h4><p>每个盘一个读写头，写头使用电流脉冲磁化材料，读头因为线圈运动发生电压改变</p>
+<h4 id="访问"><a href="#访问" class="headerlink" title="访问"></a>访问</h4><p>数据被存储在磁道上，在每个扇区的开始，有一个<strong>扇区头</strong>，用来存储寻址信息，用来在选定的磁道上找到所需要的扇区（因为磁盘是先直接寻址，在顺序寻址，即要一个个比对）；此外，还有<strong>纠错码（ECC）</strong>，用来检测与纠正读写时发生的错误。扇区间还存在扇区间隙，用来区分不同的扇区。<br><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241023191417.png><br>磁盘需要格式化，用来划分磁盘得到磁道与扇区，这通常也需要花费存储空间。<br>磁盘堆上所有的相同磁道和集合称为<strong>柱面</strong>，多个读写头按盘面搭在同一个柱面上。<br>磁盘一般以盘面为读取单位。</p>
+<h4 id="时间"><a href="#时间" class="headerlink" title="时间"></a>时间</h4><ol>
+<li><strong>寻道时间</strong>：把读写磁头移动到磁道所需的时间</li>
+<li><strong>旋转延迟（等待时间）</strong>：读写磁头找到对应的扇区的时间。</li>
+<li><strong>访问时间</strong>：前面两个时间之和；<h2 id="习题"><a href="#习题" class="headerlink" title="习题"></a>习题</h2><h1 id="指令集体系结构"><a href="#指令集体系结构" class="headerlink" title="指令集体系结构"></a>指令集体系结构</h1><h2 id="指令和指令序列"><a href="#指令和指令序列" class="headerlink" title="指令和指令序列"></a>指令和指令序列</h2>计算机必须能够具备执行四种基本指令：<strong>存储器和寄存器数据传送</strong>，<strong>数据算数和逻辑运算</strong>，<strong>程序序列化和控制执行</strong>，<strong>输入、输出发送</strong>。<h3 id="寄存器传送标记（RTN）"><a href="#寄存器传送标记（RTN）" class="headerlink" title="寄存器传送标记（RTN）"></a>寄存器传送标记（RTN）</h3>再此中，使用LOC表示存储单元地址，[ LOC ] 表示LOC的内容。R开头表示寄存器，箭头表示数据传输方向。<br>如：<code>R2&lt;-[LOC]</code>表示把LOC中的数据传入R2。<br><code>R4&lt;-[R2]+[R3]</code>表示把R2和R3中的数据取出，加法运算后写入R4。<br>以上为RTN表达式，式的右边为值，左边是单元名。<h3 id="汇编语言符号"><a href="#汇编语言符号" class="headerlink" title="汇编语言符号"></a>汇编语言符号</h3>如：<code>Load R2,LOC</code>表示把LOC中的数据写入R2。<br><code>Add R4,R2,R3</code>表示把R2与R3值相加写入R4。<br>使用<strong>助记符</strong>表示执行的操作。比如Load使用LD缩减。不同的处理器的汇编语言使用不同的助记符。<h3 id="RISC和CISC指令集"><a href="#RISC和CISC指令集" class="headerlink" title="RISC和CISC指令集"></a>RISC和CISC指令集</h3>在现代计算机的指令集设计中，有两种根本不同的方法。如果每条指令恰好占据存储器的一个字，那么可以获得更高的性能。<br>每条指令必须恰好放入一个字限制了其复杂度，减少了不同的指令数目，表示为<strong>精简指令集（RISC）</strong>。<br>相对于RISC的是<strong>复杂指令集（CISC）</strong>，他可以使用更复杂的指令，存储空间可以横跨多个存储器字。<h4 id="RISC指令集介绍"><a href="#RISC指令集介绍" class="headerlink" title="RISC指令集介绍"></a>RISC指令集介绍</h4><h5 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h5></li>
+<li>每条指令一个字长</li>
+<li>使用Load/store体系结构<ol>
+<li>只能通过Load和Store指令访问存储器操作数</li>
+<li>算数和逻辑运算中涉及的操作数必须在处理器寄存器中，或者其中一个操作数在指令字中被明确的给出。<h5 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h5><h6 id="Load"><a href="#Load" class="headerlink" title="Load"></a>Load</h6>Load将存储器中的数据加载到寄存器中，如上例所示：<br><code>Load 目的操作数，源操作数</code>或<code>Load CPU寄存器，存储单元</code>。<h6 id="Add"><a href="#Add" class="headerlink" title="Add"></a>Add</h6>我们称Add为<strong>三操作数指令</strong>或<strong>三地址指令</strong>，有格式<br><code>Add 目的操作数，源操作数1，源操作数2</code>。</li>
+</ol>
+</li>
+</ol>
+<h6 id="Store"><a href="#Store" class="headerlink" title="Store"></a>Store</h6><p>有格式<code>Store 源操作数，目的操作数</code>，其运行方向与Load相反。</p>
+<h5 id="指令执行和线性序列"><a href="#指令执行和线性序列" class="headerlink" title="指令执行和线性序列"></a>指令执行和线性序列</h5><p>我们之前提及<strong>IR（指令寄存器）</strong> 与<strong>PC（程序计数器）</strong>。<br>PC包含将要执行的下一个指令的地址，当程序开始是，第一条指令必须放入PC，然后PC递增的读取以后的指令。这种执行的方法称为<strong>线性序列</strong>。<br>执行一条指令可以分为两个阶段：</p>
+<ol>
+<li><strong>取指令</strong>：PC根据其中的下一条指令的地址在存储单元中取出指令，随后放入IR中</li>
+<li><strong>指令执行</strong>：IR对指令检查并确定要执行哪种操作，随后处理器执行此操作<br>在这两个过程中，PC自增。<h5 id="转移"><a href="#转移" class="headerlink" title="转移"></a>转移</h5>也就是循环，如下图：<br><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241101104415.png></li>
+</ol>
+<p>在左侧我们执行n次的加法，每次把值加入R2，最后存储到SUM中。<br>在右侧我们引入循环，使用R2记录循环的次数，LOOP内的内容为循环内容。<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Subtract R2,R2,#1</span><br></pre></td></tr></table></figure><br>表示对R2的内容减一，其中<code>#1</code>表示值为1的常量。<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Branch_if_[R2]&gt;0 LOOP</span><br></pre></td></tr></table></figure><br>就是一个典型的<strong>转移指令</strong>，这类指令将一个新的指令加载到PC中，而不是使PC自增的访问下一个指令。被加载到PC中的指令称为<strong>转移目标</strong>，当循环条件满足时才进行转移，否则自增的执行下一个指令。</p>
+<h2 id="指令格式（注）"><a href="#指令格式（注）" class="headerlink" title="指令格式（注）"></a>指令格式（注）</h2><p>机器指令是说明处理器电路必须执行的动作以完成预期的指令。</p>
+<h3 id="要素"><a href="#要素" class="headerlink" title="要素"></a>要素</h3><ol>
+<li>包含<strong>操作码（Opcode）</strong>，表示要执行的操作，用二进制码表示。</li>
+<li><strong>源操作数引用（Source operand reference）</strong>，指定指令所需的操作数</li>
+<li><strong>结果操作数引用（result operand refence）</strong>,指定操作的结果存放的位置。<br> 源操作数和结果操作数可以存放在主存，虚存，寄存器，IO设备中</li>
+<li><strong>下一个指令引用（next instruction refence）</strong>，表示在哪里找到下一个指令，即线性序列。<h3 id="指令表示"><a href="#指令表示" class="headerlink" title="指令表示"></a>指令表示</h3>在计算机中，指令以二进制的形式表示，指令被分为两部分：<strong>操作码</strong>和<strong>地址字段</strong>。<br>如下图:<br><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241027210734.png><h3 id="指令设计准则"><a href="#指令设计准则" class="headerlink" title="指令设计准则"></a>指令设计准则</h3></li>
+<li>短指令优于长指令</li>
+<li>指令格式中有足够的空间表示所有的操作</li>
+<li>地址栏位数有限<h3 id="地址字段格式"><a href="#地址字段格式" class="headerlink" title="地址字段格式"></a>地址字段格式</h3><h4 id="零地址指令"><a href="#零地址指令" class="headerlink" title="零地址指令"></a>零地址指令</h4>只有一个操作码的指令<br><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241027222227.png><h4 id="一地址指令"><a href="#一地址指令" class="headerlink" title="一地址指令"></a>一地址指令</h4>通常，可以隐含地理解第二个操作数是在处理器的累加器中<br><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241027222449.png></li>
+</ol>
+<h4 id="二地址指令"><a href="#二地址指令" class="headerlink" title="二地址指令"></a>二地址指令</h4><p><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241027222528.png><br>A1为结果操作数，A2为源操作数</p>
+<h4 id="三地址指令"><a href="#三地址指令" class="headerlink" title="三地址指令"></a>三地址指令</h4><p><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241027222916.png><br>A2,A3为源操作数，A1为结果操作数</p>
+<h3 id="指令长度"><a href="#指令长度" class="headerlink" title="指令长度"></a>指令长度</h3><p>根据地址指令的数量，能够为每个操作码和地址指令的长度可能也不同。<br>指令长度一般固定，根据不同的规则区分不同的指令格式。</p>
+<h3 id="做题-1"><a href="#做题-1" class="headerlink" title="做题"></a>做题</h3><p>给出指令长度与操作码长度，给出地址长度的数目：<br><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241027223901.png><br>此类型题从三地址指令向零指令地址过度，我们分配的是操作码，在此之外留意剩余空间是否能容纳指令地址：</p>
+<h4 id="三地址指令-1"><a href="#三地址指令-1" class="headerlink" title="三地址指令"></a>三地址指令</h4><p>操作码固定为4位，剩下右边12位表示三地址指令，得到<br><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241027225211.png><br>第二个16进制字符的二进制由0000到1101,表示15个三地址指令</p>
+<h4 id="二地址指令-1"><a href="#二地址指令-1" class="headerlink" title="二地址指令"></a>二地址指令</h4><p>我们需要一个特征区分三地址和二地址，在上一个步骤中，前4位不可改变，后8位无意义，需要留给其他指令格式，所以要取左侧第5~8位的某个序列固定地表示现在是二地址，故使用1111表示二地址，即前4位都是1<br>现在剩下右侧8位，我们逐个分配给14个二地址<br><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241027224308.png></p>
+<h4 id="一地址"><a href="#一地址" class="headerlink" title="一地址"></a>一地址</h4><p>和上文一致，我们使用1110和1111表示一地址，即前6位都是1<br><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241027225522.png></p>
+<h4 id="零地址"><a href="#零地址" class="headerlink" title="零地址"></a>零地址</h4><p>零地址不需要地址字段，全部分配即可<br><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241027230156.png>完成。</p>
+<h2 id="寻址方式"><a href="#寻址方式" class="headerlink" title="寻址方式"></a>寻址方式</h2><p>如下图，RISC风格的寻址方式有6种：<br><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241101104449.png><br>现在逐个介绍</p>
+<h3 id="寄存器方式"><a href="#寄存器方式" class="headerlink" title="寄存器方式"></a>寄存器方式</h3><p>在此前的例子中，我们使用$R_i$表示不同编号的寄存器，操作系统根据名称找到对应的寄存器<br>$EA=R_i$<br>优点：一次地址计算，空间占用小<br>缺点：寻址空间小</p>
+<h3 id="变量与常量寻址方式"><a href="#变量与常量寻址方式" class="headerlink" title="变量与常量寻址方式"></a>变量与常量寻址方式</h3><h4 id="绝对方式"><a href="#绝对方式" class="headerlink" title="绝对方式"></a>绝对方式</h4><p>假如我们用变量名声明了一些<strong>变量</strong>，那么我们可以通过这些变量名访问地址空间，如$NUM1$，可以表示此空间的地址而非单独的名称。<br>这些变量存储在主存中，即访问<strong>主存中的数据</strong>使用绝对方式。<br>优势：只有一次的内存访问<br>缺点：指令永远指向一个固定的地址，寻址空间有限<br>$EA=NUM1$</p>
+<h4 id="立即方式"><a href="#立即方式" class="headerlink" title="立即方式"></a>立即方式</h4><p>我们用<code>#200</code>，表示一个<strong>常量</strong>值（同时也是一个地址），使用时不再需要寻址而是直接拿取值。<br>优势：不需要访问地址即可获取数据<br>缺点：数的大小取决于地址的位数</p>
+<h3 id="间接寻址方式和指针"><a href="#间接寻址方式和指针" class="headerlink" title="间接寻址方式和指针"></a>间接寻址方式和指针</h3><h4 id="主存间接寻址"><a href="#主存间接寻址" class="headerlink" title="主存间接寻址"></a>主存间接寻址</h4><p><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241101105705.png></p>
+<p>在我们之前给出的关于循环的例子中，我们简单的用文字描述了循环内部信息：在每个循环开始时，确定下一个数的地址，加载到$R_5$中，再加到$R_3$中。我们使用处理器寄存器来保存所有待加数的地址，每次遍历时，我们递增寄存器，把地址加载到$R_5$中，我们把$R_5$称为<strong>指针</strong>，因为它指向了下一个待加数的存储空间。<br>间接方式和指针的使用在程序设计中是一个重要且强大的概念，可以使用相同的代码对不同的数据进行操作，一般在CISC中使用。<br>我们使用<code>(R5)</code>来表示间接寻址，如<code>Load R2，（R5）</code>。<br>优点：寻址空间大，若绝对寻址的大小为n，则间接寻址的大小为2n<br>缺点：需要计算两次地址</p>
+<h4 id="寄存器间接寻址"><a href="#寄存器间接寻址" class="headerlink" title="寄存器间接寻址"></a>寄存器间接寻址</h4><p><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241101110504.png><br>$EA=[R_i]$<br>优点：以较小的寻址空间表达了更大的寻址空间，减少访问时间<br>现在我们更新循环内容，如下图所示：<br><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241101104606.png><br>其中，我们使用<code>#NUM1</code>表示NUM1的地址，那么R4成为一个指向NUM1存储空间的指针。<br>我们再给出一个例子：<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">在c++中，使用</span><br><span class="line">int c=10;</span><br><span class="line">int *b=&amp;c</span><br><span class="line">int a=*b;</span><br><span class="line">则此代码的后一条可以被编译为：</span><br><span class="line">Load R2,b</span><br><span class="line">Load R3，（R2）</span><br><span class="line">Store R3，a</span><br></pre></td></tr></table></figure></p>
+<h4 id="多级间接寻址："><a href="#多级间接寻址：" class="headerlink" title="多级间接寻址："></a>多级间接寻址：</h4><ul>
+<li><strong>多级间接寻址</strong>：EA（有效地址）可以通过多层间接寻址得到。</li>
+<li><strong>EA = […[A]…]</strong>：表示有效地址（EA）可以通过嵌套层级的方式，从一个初始地址A经过多个间接地址获取到最终的有效地址。</li>
+<li><strong>地址中的间接标志位 (I bit)</strong>：在一个完整的字（word）地址中，有一位被用作间接标志位I。<ul>
+<li><strong>如果I位为0</strong>，表示该字直接包含了有效地址（EA）。</li>
+<li><strong>如果I位为1</strong>，则表示需要通过另一层间接寻址，继续寻找下一个地址。<h3 id="变址寻址方式和数组"><a href="#变址寻址方式和数组" class="headerlink" title="变址寻址方式和数组"></a>变址寻址方式和数组</h3>在变址寻址方式中，我们可以在获取地址后再加上偏移量，使得能够访问到以原地址为中心的，加上偏移量的地址。<br>有两种方式实现：<h4 id="偏移量作为常量给出"><a href="#偏移量作为常量给出" class="headerlink" title="偏移量作为常量给出"></a>偏移量作为常量给出</h4>如下图：<br><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241101104631.png><br>变址寄存器中存储原地址，偏移量作为常量给出<h4 id="偏移量存储在变址寄存器中"><a href="#偏移量存储在变址寄存器中" class="headerlink" title="偏移量存储在变址寄存器中"></a>偏移量存储在变址寄存器中</h4>如下图：<br><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241101104654.png><br>给出地址，然后以变址寄存器中的值作为偏移量<h4 id="变址寻址方式"><a href="#变址寻址方式" class="headerlink" title="变址寻址方式"></a>变址寻址方式</h4>如下例：<br><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241101104830.png><br>我们使用<code>8(R2)</code>表示对R2对应的存储空间向下移动8个字节<br>$EA = x + [Ri]$</li>
+</ul>
+</li>
+</ul>
+<h4 id="基址寻址方式"><a href="#基址寻址方式" class="headerlink" title="基址寻址方式"></a>基址寻址方式</h4><h5 id="基址寄存器"><a href="#基址寄存器" class="headerlink" title="基址寄存器"></a>基址寄存器</h5><p>将偏移值存入基址寄存器，地址存储在变址寄存器中，如<code>(Ri,Rj)</code>。<br>$EA=R_i+R_j$</p>
+<h5 id="基址变址"><a href="#基址变址" class="headerlink" title="基址变址"></a>基址变址</h5><p>在<code>Ri,Rj</code>前加上常数偏移值，如<code>X(Ri,Rj)</code>。<br>$EA=x+R_i+R_j$</p>
+<h2 id="堆栈"><a href="#堆栈" class="headerlink" title="堆栈"></a>堆栈</h2><ol>
+<li><strong>后进先出（LIFO）</strong>，弹出的一端称为<strong>栈顶</strong>，另一端称为<strong>栈底</strong>。有时也将堆栈称为<strong>下推栈</strong>。</li>
+<li>堆栈一般使用主存的一部分组成</li>
+<li>有一个特殊的处理器堆栈（在存储器中）<h3 id="处理器堆栈"><a href="#处理器堆栈" class="headerlink" title="处理器堆栈"></a>处理器堆栈</h3>CPU中存在一个<strong>栈指针（SP）</strong>寄存器来指向处理器堆栈的栈顶**</li>
+</ol>
+<p><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241101112730.png></p>
+<p>故使用push时为<code>Store Rj,(SP)</code></p>
+<p><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241101112807.png></p>
+<p>使用pop为<code>Load Rj,(SP)  Add SP,SP,#4</code>。+4时栈指针指向下一格。<br><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241101112824.png></p>
+<h2 id="子程序（Subroutines）"><a href="#子程序（Subroutines）" class="headerlink" title="子程序（Subroutines）"></a>子程序（Subroutines）</h2><p><strong>子程序</strong>是一个封装好的程序块，考虑到我们常常有对不同的数据应用同一组指令的行为，所以实现子程序以应对这些情况。<br>主程序在需要使用到子程序时，为了节省空间，我们在存储器中存放一份子程序的拷贝，下次使用时跳转到子程序的起始位置即可，此操作称为<strong>调用（Call）</strong>。<br>执行完子程序后，需要跳回原主程序的位置，此方法称为<strong>跳回（return）</strong>，为了能够回到原位置，使用Call时必须保存<strong>PC</strong>中的内容。</p>
+<h3 id="子程序链接法（subroutine-linkage）"><a href="#子程序链接法（subroutine-linkage）" class="headerlink" title="子程序链接法（subroutine linkage）"></a>子程序链接法（subroutine linkage）</h3><p>上述的能够在计算机中调用子程序并从子程序返回的方法称为<strong>子程序链接法</strong><br>Call方法存储的PC的内容一般存储在<strong>链接寄存器（link register）</strong>。</p>
+<h4 id="Call"><a href="#Call" class="headerlink" title="Call"></a>Call</h4><ol>
+<li>将PC中的内容存储到链接寄存器中</li>
+<li>转移到由Call指令指定的目标地址中<h4 id="Return"><a href="#Return" class="headerlink" title="Return"></a>Return</h4></li>
+<li>转移到链接寄存器所保存的地址中</li>
+</ol>
+<p><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241101114359.png></p>
+<h2 id="CISC指令集"><a href="#CISC指令集" class="headerlink" title="CISC指令集"></a>CISC指令集</h2><p>CISC指令集不受限于load/store体系结构（此体系结构中只能对处理器寄存器中的操作数执行算数和逻辑运算），CISC的指令不需要放在一个单字中，一个指令可能在一个字中，也可能跨越多个字。</p>
+<h3 id="Move指令"><a href="#Move指令" class="headerlink" title="Move指令"></a>Move指令</h3><p>相别于Load和Store，Move的格式为<code>Move destination,source</code>，两个操作数可以在主存中或寄存器中，但至少有一个在寄存器中。</p>
+<h3 id="其他寻址模式"><a href="#其他寻址模式" class="headerlink" title="其他寻址模式"></a>其他寻址模式</h3><h4 id="自动增量和自动减量方式"><a href="#自动增量和自动减量方式" class="headerlink" title="自动增量和自动减量方式"></a>自动增量和自动减量方式</h4><h5 id="自动增量"><a href="#自动增量" class="headerlink" title="自动增量"></a>自动增量</h5><p>操作数使用<code>(Ri)+</code>，表示访问寄存器Ri中的有效地址<strong>后</strong>自增寄存器的内容，自增的大小为被访问的操作数大小相符的值。</p>
+<h5 id="自动减量"><a href="#自动减量" class="headerlink" title="自动减量"></a>自动减量</h5><p>先自减寄存器，再访问其中的操作数的有效地址，使用<code>-(Ri)</code><br>加减的顺序与入栈出栈的顺序有关，入栈是自减后移动数据，出栈是访问栈顶再自加</p>
+<h4 id="相对方式"><a href="#相对方式" class="headerlink" title="相对方式"></a>相对方式</h4><p>使用PC代替通用寄存器（Ri）进行变址寻址，用<code>X(PC)</code>来表示距离PC所指向的地址距离X的指令。</p>
+<h3 id="条件码"><a href="#条件码" class="headerlink" title="条件码"></a>条件码</h3><p>上文提及，CISC可以执行不限于算术与逻辑的运算，处理器执行的运算通常会产生如正数，负数或0等结果，处理器保存这些信息以便后续的条件转移指令执行。<br>处理器保存的这些位是<strong>条件码标志</strong>，他们存储在<strong>条件码寄存器或状态寄存器</strong>中，以下为4个常用的标志：</p>
+<ol>
+<li>N（负数）：若结果是负数则置为1，反之置为0</li>
+<li>Z（零）：若结果是0则置为1，反之为0</li>
+<li>V（溢出）：若结果溢出，则置为1，反之为0</li>
+<li>C（进位）:若结果有一个进位输出则置为1，否则为0<br><img src=https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/20241101141957.png><br>在算术操作Subtract后，条件码重置，若n次循环没有结束，那么N与Z就都为0，则N+Z=0，不满足Branch的要求，回到循环起点。<h2 id="RISC与CISC对比"><a href="#RISC与CISC对比" class="headerlink" title="RISC与CISC对比"></a>RISC与CISC对比</h2><h3 id="RISC"><a href="#RISC" class="headerlink" title="RISC"></a>RISC</h3></li>
+<li>寻址模式简单</li>
+<li>所有指令在一个字内</li>
+<li>总指令数少</li>
+<li>寄存器上实现算术与逻辑运算</li>
+<li>使用Load/Store架构传输</li>
+<li>每个程序执行更多的指令<br>简单的指令使得设计更快的硬件变得简单<h3 id="CISC"><a href="#CISC" class="headerlink" title="CISC"></a>CISC</h3></li>
+<li>更复杂的寻址方式</li>
+<li>指令不局限于一个字</li>
+<li>指令集有更多的指令</li>
+<li>主存上实现算术与逻辑运算</li>
+<li>Move架构传输</li>
+<li>一个程序使用更少的数据<br>更复杂的指令使得设计快速的硬件变得困难</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://www.lafael.top">surtr lafael</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://www.lafael.top/2024/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">https://www.lafael.top/2024/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.lafael.top" target="_blank">Hephaestus</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%AF%BE%E5%86%85%E5%9F%BA%E7%A1%80/">课内基础</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/lafaeier/PicBed@image/img/43cb6326cebfed66.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/07/25/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" title=""><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info"></div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/head.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">surtr lafael</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">34</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">16</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/lafaeier"><i class="fab fa-github"></i><span>今四,50,喜奔。</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/lafaeier" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:hamiltonlafael@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">(阴暗的爬行)陆地,太过干燥,无鳞,离群的同胞,我呼唤你,带你归巢(嘶吼)。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="toc-number">1.</span> <span class="toc-text">计算机的基本结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.1.</span> <span class="toc-text">计算机的类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E9%83%A8%E4%BB%B6"><span class="toc-number">1.2.</span> <span class="toc-text">功能部件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E5%99%A8%EF%BC%9A"><span class="toc-number">1.2.1.</span> <span class="toc-text">存储器：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BB%E5%AD%98"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">主存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BE%85%E5%8A%A9%E5%AD%98%E5%82%A8%E5%99%A8%EF%BC%88secondary-storage%EF%BC%89"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">辅助存储器（secondary storage）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E5%99%A8"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">运算器</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="toc-number">1.3.</span> <span class="toc-text">基本操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD"><span class="toc-number">1.3.1.</span> <span class="toc-text">中断</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E7%9A%84%E8%A1%A8%E7%A4%BA%E5%8F%8A%E7%AE%97%E6%95%B0%E8%BF%90%E7%AE%97"><span class="toc-number">1.4.</span> <span class="toc-text">数的表示及算数运算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BA%A2%E5%87%BA%EF%BC%9A%E5%90%8C%E5%8F%B7%E8%A1%A5%E7%A0%81%E7%9B%B8%E5%8A%A0%E6%BA%A2%E5%87%BA%EF%BC%8C%E5%8F%8D%E4%B9%8B%E4%B8%8D%E4%BC%9A"><span class="toc-number">1.4.1.</span> <span class="toc-text">溢出：同号补码相加溢出，反之不会</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%AE%E7%82%B9%E6%95%B0%EF%BC%9A%E5%B0%8F%E6%95%B0%E7%82%B9%E7%9A%84%E4%BD%8D%E7%BD%AE%E4%BC%9A%E6%A0%B9%E6%8D%AE%E6%95%B0%E5%80%BC%E8%80%8C%E5%8F%98%E5%8C%96"><span class="toc-number">1.4.2.</span> <span class="toc-text">浮点数：小数点的位置会根据数值而变化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B6%E8%A1%8C"><span class="toc-number">1.5.</span> <span class="toc-text">并行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%86%E5%8F%B2"><span class="toc-number">1.6.</span> <span class="toc-text">历史</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E4%BB%A3"><span class="toc-number">1.6.1.</span> <span class="toc-text">第一代</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E4%BB%A3"><span class="toc-number">1.6.2.</span> <span class="toc-text">第二代</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E4%BB%A3"><span class="toc-number">1.6.3.</span> <span class="toc-text">第三代</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E4%BB%A3"><span class="toc-number">1.6.4.</span> <span class="toc-text">第四代</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%97%E6%95%B0%E8%BF%90%E7%AE%97"><span class="toc-number">2.</span> <span class="toc-text">算数运算</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%89%E7%AC%A6%E5%8F%B7%E6%95%B0%E5%8A%A0%E5%87%8F%E6%B3%95"><span class="toc-number">2.1.</span> <span class="toc-text">有符号数加减法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%8C%E6%B3%A2%E8%BF%9B%E4%BD%8D%E5%8A%A0%E6%B3%95%E5%99%A8%EF%BC%88ripple-carry-adder%EF%BC%89"><span class="toc-number">2.1.1.</span> <span class="toc-text">行波进位加法器（ripple-carry adder）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%80%E4%BD%8E%E6%9C%89%E6%95%88%E4%BD%8D%EF%BC%88LSB%EF%BC%89"><span class="toc-number">2.1.1.1.</span> <span class="toc-text">最低有效位（LSB）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%95%E4%BD%8D"><span class="toc-number">2.1.1.2.</span> <span class="toc-text">单位</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%A7%E8%81%94"><span class="toc-number">2.1.1.3.</span> <span class="toc-text">级联</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E5%8A%A0%E6%B3%95%E5%99%A8%E8%AE%BE%E8%AE%A1"><span class="toc-number">2.2.</span> <span class="toc-text">快速加法器设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B6%85%E5%89%8D%E8%BF%9B%E4%BD%8D%E5%8A%A0%E6%B3%95"><span class="toc-number">2.2.1.</span> <span class="toc-text">超前进位加法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%95%E4%BD%8D-1"><span class="toc-number">2.2.1.1.</span> <span class="toc-text">单位</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B4%E4%BD%93"><span class="toc-number">2.2.1.2.</span> <span class="toc-text">整体</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%A7%E8%81%94-1"><span class="toc-number">2.2.1.3.</span> <span class="toc-text">级联</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%94%B9%E8%BF%9B"><span class="toc-number">2.2.1.4.</span> <span class="toc-text">改进</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A0%E7%AC%A6%E5%8F%B7%E6%95%B0%E4%B9%98%E6%B3%95"><span class="toc-number">2.3.</span> <span class="toc-text">无符号数乘法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%99%88%E5%88%97"><span class="toc-number">2.3.1.</span> <span class="toc-text">陈列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%B5%E5%88%97%E4%B9%98%E6%B3%95%E5%99%A8"><span class="toc-number">2.3.2.</span> <span class="toc-text">阵列乘法器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%95%E4%BD%8D-2"><span class="toc-number">2.3.2.1.</span> <span class="toc-text">单位</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B4%E4%BD%93-1"><span class="toc-number">2.3.2.2.</span> <span class="toc-text">整体</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E6%B3%A8%EF%BC%89%E9%A1%BA%E5%BA%8F%E7%94%B5%E8%B7%AF%E4%B9%98%E6%B3%95%E5%99%A8"><span class="toc-number">2.3.3.</span> <span class="toc-text">（注）顺序电路乘法器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B4%E4%BD%93-2"><span class="toc-number">2.3.3.1.</span> <span class="toc-text">整体</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%89%E7%AC%A6%E5%8F%B7%E6%95%B0%E4%B9%98%E6%B3%95"><span class="toc-number">2.4.</span> <span class="toc-text">有符号数乘法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Booth%E7%AE%97%E6%B3%95"><span class="toc-number">2.4.1.</span> <span class="toc-text">Booth算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E4%B9%98%E6%B3%95"><span class="toc-number">2.5.</span> <span class="toc-text">快速乘法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B9%98%E6%95%B0%E4%BD%8D%E5%81%B6%E9%87%8D%E7%BC%96%E7%A0%81"><span class="toc-number">2.5.1.</span> <span class="toc-text">乘数位偶重编码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B1%82%E5%92%8C%E9%A1%B9%E7%9A%84%E8%BF%9B%E4%BD%8D%E4%BF%9D%E7%95%99%E5%8A%A0%E6%B3%95"><span class="toc-number">2.5.2.</span> <span class="toc-text">求和项的进位保留加法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A83-2%E7%AE%80%E5%8C%96%E5%99%A8%E7%9A%84%E6%B1%82%E5%92%8C%E9%A1%B9%E5%8A%A0%E6%B3%95%E6%A0%91"><span class="toc-number">2.5.3.</span> <span class="toc-text">使用3-2简化器的求和项加法树</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A84-2%E7%AE%80%E5%8C%96%E5%99%A8%E7%9A%84%E6%B1%82%E5%92%8C%E9%A1%B9%E5%8A%A0%E6%B3%95%E6%A0%91"><span class="toc-number">2.5.4.</span> <span class="toc-text">使用4-2简化器的求和项加法树</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B4%E6%95%B0%E9%99%A4%E6%B3%95"><span class="toc-number">2.6.</span> <span class="toc-text">整数除法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%81%A2%E5%A4%8D%E9%99%A4%E6%B3%95"><span class="toc-number">2.6.1.</span> <span class="toc-text">恢复除法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4"><span class="toc-number">2.6.1.1.</span> <span class="toc-text">步骤</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E6%B3%A8%EF%BC%89%E4%B8%8D%E6%81%A2%E5%A4%8D%E9%99%A4%E6%B3%95"><span class="toc-number">2.6.2.</span> <span class="toc-text">（注）不恢复除法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-1"><span class="toc-number">2.6.2.1.</span> <span class="toc-text">步骤</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%AE%E7%82%B9%E6%95%B0%E5%8F%8A%E5%85%B6%E8%BF%90%E7%AE%97"><span class="toc-number">2.7.</span> <span class="toc-text">浮点数及其运算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%A6%E5%8F%B7%E4%BD%8DS"><span class="toc-number">2.7.1.</span> <span class="toc-text">符号位S</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%99%E6%95%B0"><span class="toc-number">2.7.2.</span> <span class="toc-text">余数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%BE%E6%95%B0M"><span class="toc-number">2.7.3.</span> <span class="toc-text">尾数M</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A%E5%80%BC"><span class="toc-number">2.7.4.</span> <span class="toc-text">特殊值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4"><span class="toc-number">2.7.5.</span> <span class="toc-text">加减乘除</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%9D%E6%8A%A4%E4%BD%8D%E4%B8%8E%E6%88%AA%E5%8F%96"><span class="toc-number">2.7.6.</span> <span class="toc-text">保护位与截取</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%88%AA%E6%96%AD"><span class="toc-number">2.7.6.1.</span> <span class="toc-text">截断</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%AF%E8%AF%BA%E4%BE%9D%E6%9B%BC%E8%88%8D%E5%85%A5"><span class="toc-number">2.7.6.2.</span> <span class="toc-text">冯诺依曼舍入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%88%8D%E5%85%A5"><span class="toc-number">2.7.6.3.</span> <span class="toc-text">舍入</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E5%87%8F%E6%93%8D%E4%BD%9C%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.7.7.</span> <span class="toc-text">加减操作的实现</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E5%99%A8%E7%B3%BB%E7%BB%9F%EF%BC%88%E6%B3%A8%E6%84%8F%E5%90%84%E5%85%83%E4%BB%B6%E4%B8%8E%E6%96%B9%E6%B3%95%E4%B9%8B%E9%97%B4%E7%9A%84%E6%AF%94%E8%BE%83%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">存储器系统（注意各元件与方法之间的比较）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="toc-number">3.1.</span> <span class="toc-text">基础概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E5%AD%98%E7%BB%84%E7%BB%87%E6%9E%B6%E6%9E%84"><span class="toc-number">3.1.1.</span> <span class="toc-text">主存组织架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E5%AD%98%E8%AE%BF%E9%97%AE%E9%A1%BA%E5%BA%8F"><span class="toc-number">3.1.2.</span> <span class="toc-text">主存访问顺序</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%A7%E5%AD%97%E8%8A%82%E5%88%86%E9%85%8D"><span class="toc-number">3.1.2.1.</span> <span class="toc-text">大字节分配</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%8F%E5%AD%97%E8%8A%82%E5%88%86%E9%85%8D"><span class="toc-number">3.1.2.2.</span> <span class="toc-text">小字节分配</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E5%AD%98%E4%BA%A4%E4%BA%92"><span class="toc-number">3.1.3.</span> <span class="toc-text">主存交互</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%BB%E6%93%8D%E4%BD%9C"><span class="toc-number">3.1.3.1.</span> <span class="toc-text">读操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%99%E6%93%8D%E4%BD%9C"><span class="toc-number">3.1.3.2.</span> <span class="toc-text">写操作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E5%BE%81"><span class="toc-number">3.1.4.</span> <span class="toc-text">特征</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%89%A9%E7%90%86%E7%89%B9%E5%BE%81"><span class="toc-number">3.1.4.1.</span> <span class="toc-text">物理特征</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%98%E5%82%A8"><span class="toc-number">3.1.4.2.</span> <span class="toc-text">存储</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%A0%E8%BE%93"><span class="toc-number">3.1.4.3.</span> <span class="toc-text">传输</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E6%96%B9%E5%BC%8F"><span class="toc-number">3.1.4.4.</span> <span class="toc-text">访问方式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%A1%BA%E5%BA%8F%E8%AE%BF%E9%97%AE"><span class="toc-number">3.1.4.4.1.</span> <span class="toc-text">顺序访问</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%9A%8F%E6%9C%BA%E8%AE%BF%E9%97%AE"><span class="toc-number">3.1.4.4.2.</span> <span class="toc-text">随机访问</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%9B%B4%E6%8E%A5%E8%AE%BF%E9%97%AE"><span class="toc-number">3.1.4.4.3.</span> <span class="toc-text">直接访问</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E9%95%BF"><span class="toc-number">3.1.5.</span> <span class="toc-text">时长</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E6%97%B6%E9%95%BF"><span class="toc-number">3.1.5.1.</span> <span class="toc-text">访问时长</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%91%A8%E6%9C%9F%E6%97%B6%E9%95%BF"><span class="toc-number">3.1.5.2.</span> <span class="toc-text">周期时长</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%A0%E8%BE%93%E9%80%9F%E7%8E%87"><span class="toc-number">3.1.5.3.</span> <span class="toc-text">传输速率</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%98%93%E5%A4%B1-%E4%B8%8D%E6%98%93%E5%A4%B1%EF%BC%88Volatile-Nonvolatile%EF%BC%89"><span class="toc-number">3.1.6.</span> <span class="toc-text">易失&#x2F;不易失（Volatile&#x2F;Nonvolatile）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E6%93%A6%E5%86%99-%E4%B8%8D%E5%8F%AF%E6%93%A6%E5%86%99%EF%BC%88Erasable-Non-erasable%EF%BC%89"><span class="toc-number">3.1.7.</span> <span class="toc-text">可擦写&#x2F;不可擦写（Erasable&#x2F;Non-erasable）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RAM-%E5%8D%8A%E5%AF%BC%E4%BD%93%E9%9A%8F%E6%9C%BA%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-number">3.2.</span> <span class="toc-text">RAM(半导体随机存储器)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SRAM%EF%BC%88%E9%9D%99%E6%80%81%E5%AD%98%E5%82%A8%E5%99%A8%EF%BC%89"><span class="toc-number">3.2.1.</span> <span class="toc-text">SRAM（静态存储器）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%BB"><span class="toc-number">3.2.1.1.</span> <span class="toc-text">读</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%99"><span class="toc-number">3.2.1.2.</span> <span class="toc-text">写</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CMOS%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.2.1.3.</span> <span class="toc-text">CMOS的实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">3.2.1.4.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E5%99%A8%E8%8A%AF%E7%89%87%E7%9A%84%E5%86%85%E9%83%A8%E7%BB%84%E7%BB%87"><span class="toc-number">3.2.2.</span> <span class="toc-text">存储器芯片的内部组织</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%BB-1"><span class="toc-number">3.2.2.1.</span> <span class="toc-text">读</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%99-1"><span class="toc-number">3.2.2.2.</span> <span class="toc-text">写</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%83%E4%BB%B6"><span class="toc-number">3.2.2.3.</span> <span class="toc-text">元件</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9C%B0%E5%9D%80%E7%BA%BF"><span class="toc-number">3.2.2.3.1.</span> <span class="toc-text">地址线</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BE%93%E5%85%A5-%E8%BE%93%E5%87%BA%E7%BA%BF"><span class="toc-number">3.2.2.3.2.</span> <span class="toc-text">输入&#x2F;输出线</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#R-W"><span class="toc-number">3.2.2.3.3.</span> <span class="toc-text">R&#x2F;W</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#CS%EF%BC%88%E5%BC%95%E8%84%9A%EF%BC%89"><span class="toc-number">3.2.2.3.4.</span> <span class="toc-text">CS（引脚）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DRAM%EF%BC%88%E5%8A%A8%E6%80%81%E9%9A%8F%E6%9C%BA%E5%AD%98%E5%82%A8%E5%99%A8%EF%BC%89"><span class="toc-number">3.2.3.</span> <span class="toc-text">DRAM（动态随机存储器）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%BB-2"><span class="toc-number">3.2.3.1.</span> <span class="toc-text">读</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%99-2"><span class="toc-number">3.2.3.2.</span> <span class="toc-text">写</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%98%E7%82%B9"><span class="toc-number">3.2.3.3.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9"><span class="toc-number">3.2.3.4.</span> <span class="toc-text">缺点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5%E5%8A%A8%E6%80%81%E9%9A%8F%E6%9C%BA%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-number">3.2.3.5.</span> <span class="toc-text">异步动态随机存储器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E9%A1%B5%E6%A8%A1%E5%BC%8F"><span class="toc-number">3.2.3.6.</span> <span class="toc-text">快速页模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%8C%E6%AD%A5%E9%9A%8F%E6%9C%BA%E5%AD%98%E5%82%A8%E5%99%A8%EF%BC%88SDRAM%EF%BC%89"><span class="toc-number">3.2.3.7.</span> <span class="toc-text">同步随机存储器（SDRAM）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BB%B6%E8%BF%9F"><span class="toc-number">3.2.3.8.</span> <span class="toc-text">延迟</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%A6%E5%AE%BD"><span class="toc-number">3.2.3.9.</span> <span class="toc-text">带宽</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DDR-SDRAM"><span class="toc-number">3.2.3.10.</span> <span class="toc-text">DDR SDRAM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Rambus%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-number">3.2.3.11.</span> <span class="toc-text">Rambus存储器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%A7%E5%AE%B9%E9%87%8F%E5%AD%98%E5%82%A8%E5%99%A8%E7%BB%93%E6%9E%84"><span class="toc-number">3.2.4.</span> <span class="toc-text">大容量存储器结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88%E6%B3%A8%EF%BC%89%E9%9D%99%E6%80%81%E5%AD%98%E5%82%A8%E5%99%A8%E7%B3%BB%E7%BB%9F"><span class="toc-number">3.2.4.1.</span> <span class="toc-text">（注）静态存储器系统</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%8D%E6%89%A9%E5%B1%95%E6%B3%95"><span class="toc-number">3.2.4.1.1.</span> <span class="toc-text">位扩展法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AD%97%E6%89%A9%E5%B1%95%E6%B3%95"><span class="toc-number">3.2.4.1.2.</span> <span class="toc-text">字扩展法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AD%97%E4%BD%8D%E5%90%8C%E6%97%B6%E6%89%A9%E5%B1%95"><span class="toc-number">3.2.4.1.3.</span> <span class="toc-text">字位同时扩展</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%8C%89%E5%AD%97%E8%8A%82%E4%B8%8E%E6%8C%89%E5%AD%97%E7%BC%96%E5%9D%80"><span class="toc-number">3.2.4.1.4.</span> <span class="toc-text">按字节与按字编址</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E5%AD%98%E5%82%A8%E5%99%A8%E7%B3%BB%E7%BB%9F"><span class="toc-number">3.2.4.2.</span> <span class="toc-text">动态存储器系统</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#SIMM%E5%8D%95%E5%88%97%E7%9B%B4%E6%8F%92%E5%AD%98%E5%82%A8%E5%99%A8%E6%A8%A1%E5%9D%97"><span class="toc-number">3.2.4.2.1.</span> <span class="toc-text">SIMM单列直插存储器模块</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#DIMM%E5%8F%8C%E5%88%97%E7%9B%B4%E6%8F%92%E5%AD%98%E5%82%A8%E5%99%A8%E6%A8%A1%E5%9D%97"><span class="toc-number">3.2.4.2.2.</span> <span class="toc-text">DIMM双列直插存储器模块</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E6%8E%A7%E5%88%B6%E5%99%A8"><span class="toc-number">3.2.4.3.</span> <span class="toc-text">存储控制器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%B7%E6%96%B0%E5%BC%80%E9%94%80"><span class="toc-number">3.2.4.4.</span> <span class="toc-text">刷新开销</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AA%E8%AF%BB%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-number">3.3.</span> <span class="toc-text">只读存储器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E5%B1%82%E6%AC%A1"><span class="toc-number">3.3.1.</span> <span class="toc-text">内存层次</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ROM%EF%BC%88%E5%8F%AA%E8%AF%BB%E5%AD%98%E5%82%A8%E5%99%A8%EF%BC%89"><span class="toc-number">3.3.2.</span> <span class="toc-text">ROM（只读存储器）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PROM%EF%BC%88%E5%8F%AF%E7%BC%96%E7%A8%8B%E5%8F%AA%E8%AF%BB%E5%AD%98%E5%82%A8%E5%99%A8%EF%BC%89"><span class="toc-number">3.3.3.</span> <span class="toc-text">PROM（可编程只读存储器）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#EPROM%EF%BC%88%E5%8F%AF%E6%93%A6%E9%99%A4%E5%8F%AF%E7%BC%96%E7%A8%8B%E5%8F%AA%E8%AF%BB%E5%AD%98%E5%82%A8%E5%99%A8%EF%BC%89"><span class="toc-number">3.3.4.</span> <span class="toc-text">EPROM（可擦除可编程只读存储器）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#EEPROM%EF%BC%88%E7%94%B5%E5%8F%AF%E6%93%A6%E9%99%A4%E5%8F%AF%E7%BC%96%E7%A8%8B%E5%8F%AA%E8%AF%BB%E5%AD%98%E5%82%A8%E5%99%A8%EF%BC%89"><span class="toc-number">3.3.5.</span> <span class="toc-text">EEPROM（电可擦除可编程只读存储器）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AA%E5%AD%98"><span class="toc-number">3.3.6.</span> <span class="toc-text">闪存</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AA%E5%AD%98%E5%8D%A1"><span class="toc-number">3.3.6.1.</span> <span class="toc-text">闪存卡</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AA%E5%AD%98%E9%A9%B1%E5%8A%A8%E5%99%A8"><span class="toc-number">3.3.6.2.</span> <span class="toc-text">闪存驱动器</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE%EF%BC%88DMA%EF%BC%89"><span class="toc-number">3.4.</span> <span class="toc-text">直接存储访问（DMA）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E5%99%A8%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84"><span class="toc-number">3.5.</span> <span class="toc-text">存储器层次结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#buffer%EF%BC%88%E7%BC%93%E5%86%B2%E5%8C%BA%EF%BC%89"><span class="toc-number">3.5.1.</span> <span class="toc-text">buffer（缓冲区）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AB%98%E9%80%9F%E7%BC%93%E5%AD%98%EF%BC%88%E6%B3%A8%EF%BC%89"><span class="toc-number">3.6.</span> <span class="toc-text">高速缓存（注）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%80%E9%83%A8%E6%80%A7"><span class="toc-number">3.6.1.</span> <span class="toc-text">局部性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E5%B1%80%E9%83%A8%E6%80%A7"><span class="toc-number">3.6.1.1.</span> <span class="toc-text">时间局部性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A9%BA%E9%97%B4%E5%B1%80%E9%83%A8%E6%80%A7"><span class="toc-number">3.6.1.2.</span> <span class="toc-text">空间局部性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AB%98%E9%80%9F%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD"><span class="toc-number">3.6.2.</span> <span class="toc-text">高速缓存命中</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%BB%E6%88%96%E5%86%99%E5%91%BD%E4%B8%AD%EF%BC%88read-or-write-hit%EF%BC%89"><span class="toc-number">3.6.2.1.</span> <span class="toc-text">读或写命中（read or write hit）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AF%BB%E6%93%8D%E4%BD%9C-1"><span class="toc-number">3.6.2.1.1.</span> <span class="toc-text">读操作</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%86%99%E6%93%8D%E4%BD%9C-1"><span class="toc-number">3.6.2.1.2.</span> <span class="toc-text">写操作</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%9B%B4%E6%8E%A5%E5%86%99"><span class="toc-number">3.6.2.1.2.1.</span> <span class="toc-text">直接写</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%86%99%E5%9B%9E"><span class="toc-number">3.6.2.1.2.2.</span> <span class="toc-text">写回</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AB%98%E9%80%9F%E7%BC%93%E5%AD%98%E5%A4%B1%E6%95%88"><span class="toc-number">3.6.3.</span> <span class="toc-text">高速缓存失效</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%BB%E6%93%8D%E4%BD%9C-2"><span class="toc-number">3.6.3.1.</span> <span class="toc-text">读操作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%98%A0%E5%B0%84"><span class="toc-number">3.6.4.</span> <span class="toc-text">映射</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%B4%E6%8E%A5%E6%98%A0%E5%B0%84"><span class="toc-number">3.6.4.1.</span> <span class="toc-text">直接映射</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AF%84%E4%BB%B7"><span class="toc-number">3.6.4.1.1.</span> <span class="toc-text">评价</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%B8%E8%81%94%E6%98%A0%E5%B0%84"><span class="toc-number">3.6.4.2.</span> <span class="toc-text">相联映射</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AF%84%E5%88%A4"><span class="toc-number">3.6.4.2.1.</span> <span class="toc-text">评判</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%84%E7%9B%B8%E8%81%94%E6%98%A0%E5%B0%84"><span class="toc-number">3.6.4.3.</span> <span class="toc-text">组相联映射</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AF%84%E4%BB%B7-1"><span class="toc-number">3.6.4.3.1.</span> <span class="toc-text">评价</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%87%E6%97%B6%E6%95%B0%E6%8D%AE"><span class="toc-number">3.6.4.4.</span> <span class="toc-text">过时数据</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%AB%98%E9%80%9F%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7"><span class="toc-number">3.6.4.4.1.</span> <span class="toc-text">高速缓存一致性</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%BF%E6%8D%A2%E7%AE%97%E6%B3%95"><span class="toc-number">3.6.5.</span> <span class="toc-text">替换算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#LRU%EF%BC%88%E6%9C%80%E8%BF%91%E6%9C%80%E5%B0%91%EF%BC%89"><span class="toc-number">3.6.5.1.</span> <span class="toc-text">LRU（最近最少）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FIFO"><span class="toc-number">3.6.5.2.</span> <span class="toc-text">FIFO</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9A%8F%E6%9C%BA"><span class="toc-number">3.6.5.3.</span> <span class="toc-text">随机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%88%E6%B3%A8%EF%BC%89%E4%BE%8B%E5%AD%90"><span class="toc-number">3.6.5.4.</span> <span class="toc-text">（注）例子</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%9B%B4%E6%8E%A5%E6%98%A0%E5%B0%84-1"><span class="toc-number">3.6.5.4.1.</span> <span class="toc-text">直接映射</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%9B%B8%E8%81%94%E6%98%A0%E5%B0%84-1"><span class="toc-number">3.6.5.4.2.</span> <span class="toc-text">相联映射</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BB%84%E7%9B%B8%E8%81%94%E6%98%A0%E5%B0%84-1"><span class="toc-number">3.6.5.4.3.</span> <span class="toc-text">组相联映射</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E5%9B%A0%E7%B4%A0"><span class="toc-number">3.6.6.</span> <span class="toc-text">性能因素</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%91%BD%E4%B8%AD%E7%8E%87%E5%92%8C%E5%A4%B1%E6%95%88%E5%BC%80%E6%95%88"><span class="toc-number">3.6.6.1.</span> <span class="toc-text">命中率和失效开效</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%91%BD%E4%B8%AD"><span class="toc-number">3.6.6.1.1.</span> <span class="toc-text">命中</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A4%B1%E6%95%88%E5%BC%80%E9%94%80"><span class="toc-number">3.6.6.1.2.</span> <span class="toc-text">失效开销</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90"><span class="toc-number">3.6.6.1.2.1.</span> <span class="toc-text">例子</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E5%99%A8%E8%8A%AF%E7%89%87%E4%B8%8A%E7%9A%84%E9%AB%98%E9%80%9F%E7%BC%93%E5%AD%98"><span class="toc-number">3.6.6.2.</span> <span class="toc-text">处理器芯片上的高速缓存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E6%94%B9%E8%BF%9B%EF%BC%88%E6%B2%A1%E8%AE%B2%EF%BC%89"><span class="toc-number">3.6.6.3.</span> <span class="toc-text">其他改进（没讲）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%86%99%E7%BC%93%E5%86%B2%E5%8C%BA"><span class="toc-number">3.6.6.3.1.</span> <span class="toc-text">写缓冲区</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%A2%84%E5%8F%96"><span class="toc-number">3.6.6.3.2.</span> <span class="toc-text">预取</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%97%A0%E9%94%81%E5%AE%9A%E9%AB%98%E9%80%9F%E7%BC%93%E5%AD%98"><span class="toc-number">3.6.6.3.3.</span> <span class="toc-text">无锁定高速缓存</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E5%AD%98%E5%82%A8%E5%99%A8%EF%BC%88%E6%B3%A8%EF%BC%89"><span class="toc-number">3.7.</span> <span class="toc-text">虚拟存储器（注）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A6%86%E7%9B%96%EF%BC%88Overlaying%EF%BC%89"><span class="toc-number">3.7.1.</span> <span class="toc-text">覆盖（Overlaying）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2"><span class="toc-number">3.7.2.</span> <span class="toc-text">地址转换</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BD%AC%E6%8D%A2%E7%9B%91%E8%A7%86%E7%BC%93%E5%86%B2%E5%8C%BA%EF%BC%88TLB%EF%BC%89"><span class="toc-number">3.7.2.1.</span> <span class="toc-text">转换监视缓冲区（TLB）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%B5%E6%95%85%E9%9A%9C%EF%BC%88page-fault%EF%BC%89"><span class="toc-number">3.7.2.2.</span> <span class="toc-text">页故障（page fault）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%B9%E5%87%BA%E9%A1%B5"><span class="toc-number">3.7.2.3.</span> <span class="toc-text">弹出页</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%9E%90"><span class="toc-number">3.7.3.</span> <span class="toc-text">分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%98%E7%82%B9-1"><span class="toc-number">3.7.3.1.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%85%E9%83%A8%E7%A2%8E%E7%89%87%EF%BC%88%E7%BC%BA%E7%82%B9%EF%BC%89"><span class="toc-number">3.7.3.2.</span> <span class="toc-text">内部碎片（缺点）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%A7%E5%AE%B9%E9%87%8F%E7%9A%84%E9%A1%B5%E7%9A%84%E4%BC%98%E7%82%B9"><span class="toc-number">3.7.3.3.</span> <span class="toc-text">大容量的页的优点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%A7%E5%AE%B9%E9%87%8F%E7%9A%84%E9%A1%B5%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="toc-number">3.7.3.4.</span> <span class="toc-text">大容量的页的缺点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%81%9A%E9%A2%98"><span class="toc-number">3.7.4.</span> <span class="toc-text">做题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%85%E5%8A%A9%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-number">3.8.</span> <span class="toc-text">辅助存储器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A3%81%E7%9B%98"><span class="toc-number">3.8.1.</span> <span class="toc-text">磁盘</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9B%BC%E5%BD%BB%E6%96%AF%E7%89%B9%E7%BC%96%E7%A0%81"><span class="toc-number">3.8.1.1.</span> <span class="toc-text">曼彻斯特编码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B8%A9%E5%88%87%E6%96%AF%E7%89%B9%E6%8A%80%E6%9C%AF"><span class="toc-number">3.8.1.2.</span> <span class="toc-text">温切斯特技术</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%BB%E5%86%99"><span class="toc-number">3.8.1.3.</span> <span class="toc-text">读写</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE"><span class="toc-number">3.8.1.4.</span> <span class="toc-text">访问</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%B6%E9%97%B4"><span class="toc-number">3.8.1.5.</span> <span class="toc-text">时间</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%A0%E9%A2%98"><span class="toc-number">3.9.</span> <span class="toc-text">习题</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E9%9B%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="toc-number">4.</span> <span class="toc-text">指令集体系结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E5%92%8C%E6%8C%87%E4%BB%A4%E5%BA%8F%E5%88%97"><span class="toc-number">4.1.</span> <span class="toc-text">指令和指令序列</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E4%BC%A0%E9%80%81%E6%A0%87%E8%AE%B0%EF%BC%88RTN%EF%BC%89"><span class="toc-number">4.1.1.</span> <span class="toc-text">寄存器传送标记（RTN）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%AC%A6%E5%8F%B7"><span class="toc-number">4.1.2.</span> <span class="toc-text">汇编语言符号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RISC%E5%92%8CCISC%E6%8C%87%E4%BB%A4%E9%9B%86"><span class="toc-number">4.1.3.</span> <span class="toc-text">RISC和CISC指令集</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#RISC%E6%8C%87%E4%BB%A4%E9%9B%86%E4%BB%8B%E7%BB%8D"><span class="toc-number">4.1.3.1.</span> <span class="toc-text">RISC指令集介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%89%B9%E6%80%A7"><span class="toc-number">4.1.3.1.1.</span> <span class="toc-text">特性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4"><span class="toc-number">4.1.3.1.2.</span> <span class="toc-text">指令</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#Load"><span class="toc-number">4.1.3.1.2.1.</span> <span class="toc-text">Load</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#Add"><span class="toc-number">4.1.3.1.2.2.</span> <span class="toc-text">Add</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#Store"><span class="toc-number">4.1.3.1.2.3.</span> <span class="toc-text">Store</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E6%89%A7%E8%A1%8C%E5%92%8C%E7%BA%BF%E6%80%A7%E5%BA%8F%E5%88%97"><span class="toc-number">4.1.3.1.3.</span> <span class="toc-text">指令执行和线性序列</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BD%AC%E7%A7%BB"><span class="toc-number">4.1.3.1.4.</span> <span class="toc-text">转移</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F%EF%BC%88%E6%B3%A8%EF%BC%89"><span class="toc-number">4.2.</span> <span class="toc-text">指令格式（注）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A6%81%E7%B4%A0"><span class="toc-number">4.2.1.</span> <span class="toc-text">要素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E8%A1%A8%E7%A4%BA"><span class="toc-number">4.2.2.</span> <span class="toc-text">指令表示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E8%AE%BE%E8%AE%A1%E5%87%86%E5%88%99"><span class="toc-number">4.2.3.</span> <span class="toc-text">指令设计准则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%B0%E5%9D%80%E5%AD%97%E6%AE%B5%E6%A0%BC%E5%BC%8F"><span class="toc-number">4.2.4.</span> <span class="toc-text">地址字段格式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9B%B6%E5%9C%B0%E5%9D%80%E6%8C%87%E4%BB%A4"><span class="toc-number">4.2.4.1.</span> <span class="toc-text">零地址指令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E5%9C%B0%E5%9D%80%E6%8C%87%E4%BB%A4"><span class="toc-number">4.2.4.2.</span> <span class="toc-text">一地址指令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E5%9C%B0%E5%9D%80%E6%8C%87%E4%BB%A4"><span class="toc-number">4.2.4.3.</span> <span class="toc-text">二地址指令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89%E5%9C%B0%E5%9D%80%E6%8C%87%E4%BB%A4"><span class="toc-number">4.2.4.4.</span> <span class="toc-text">三地址指令</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E9%95%BF%E5%BA%A6"><span class="toc-number">4.2.5.</span> <span class="toc-text">指令长度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%81%9A%E9%A2%98-1"><span class="toc-number">4.2.6.</span> <span class="toc-text">做题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89%E5%9C%B0%E5%9D%80%E6%8C%87%E4%BB%A4-1"><span class="toc-number">4.2.6.1.</span> <span class="toc-text">三地址指令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E5%9C%B0%E5%9D%80%E6%8C%87%E4%BB%A4-1"><span class="toc-number">4.2.6.2.</span> <span class="toc-text">二地址指令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E5%9C%B0%E5%9D%80"><span class="toc-number">4.2.6.3.</span> <span class="toc-text">一地址</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9B%B6%E5%9C%B0%E5%9D%80"><span class="toc-number">4.2.6.4.</span> <span class="toc-text">零地址</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F"><span class="toc-number">4.3.</span> <span class="toc-text">寻址方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E6%96%B9%E5%BC%8F"><span class="toc-number">4.3.1.</span> <span class="toc-text">寄存器方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E4%B8%8E%E5%B8%B8%E9%87%8F%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F"><span class="toc-number">4.3.2.</span> <span class="toc-text">变量与常量寻址方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%9D%E5%AF%B9%E6%96%B9%E5%BC%8F"><span class="toc-number">4.3.2.1.</span> <span class="toc-text">绝对方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AB%8B%E5%8D%B3%E6%96%B9%E5%BC%8F"><span class="toc-number">4.3.2.2.</span> <span class="toc-text">立即方式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%B4%E6%8E%A5%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F%E5%92%8C%E6%8C%87%E9%92%88"><span class="toc-number">4.3.3.</span> <span class="toc-text">间接寻址方式和指针</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BB%E5%AD%98%E9%97%B4%E6%8E%A5%E5%AF%BB%E5%9D%80"><span class="toc-number">4.3.3.1.</span> <span class="toc-text">主存间接寻址</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E9%97%B4%E6%8E%A5%E5%AF%BB%E5%9D%80"><span class="toc-number">4.3.3.2.</span> <span class="toc-text">寄存器间接寻址</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E7%BA%A7%E9%97%B4%E6%8E%A5%E5%AF%BB%E5%9D%80%EF%BC%9A"><span class="toc-number">4.3.3.3.</span> <span class="toc-text">多级间接寻址：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E5%9D%80%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F%E5%92%8C%E6%95%B0%E7%BB%84"><span class="toc-number">4.3.4.</span> <span class="toc-text">变址寻址方式和数组</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%81%8F%E7%A7%BB%E9%87%8F%E4%BD%9C%E4%B8%BA%E5%B8%B8%E9%87%8F%E7%BB%99%E5%87%BA"><span class="toc-number">4.3.4.1.</span> <span class="toc-text">偏移量作为常量给出</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%81%8F%E7%A7%BB%E9%87%8F%E5%AD%98%E5%82%A8%E5%9C%A8%E5%8F%98%E5%9D%80%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%AD"><span class="toc-number">4.3.4.2.</span> <span class="toc-text">偏移量存储在变址寄存器中</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%98%E5%9D%80%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F"><span class="toc-number">4.3.4.3.</span> <span class="toc-text">变址寻址方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E5%9D%80%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F"><span class="toc-number">4.3.4.4.</span> <span class="toc-text">基址寻址方式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9F%BA%E5%9D%80%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">4.3.4.4.1.</span> <span class="toc-text">基址寄存器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9F%BA%E5%9D%80%E5%8F%98%E5%9D%80"><span class="toc-number">4.3.4.4.2.</span> <span class="toc-text">基址变址</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A0%86%E6%A0%88"><span class="toc-number">4.4.</span> <span class="toc-text">堆栈</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E5%99%A8%E5%A0%86%E6%A0%88"><span class="toc-number">4.4.1.</span> <span class="toc-text">处理器堆栈</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%90%E7%A8%8B%E5%BA%8F%EF%BC%88Subroutines%EF%BC%89"><span class="toc-number">4.5.</span> <span class="toc-text">子程序（Subroutines）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%90%E7%A8%8B%E5%BA%8F%E9%93%BE%E6%8E%A5%E6%B3%95%EF%BC%88subroutine-linkage%EF%BC%89"><span class="toc-number">4.5.1.</span> <span class="toc-text">子程序链接法（subroutine linkage）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Call"><span class="toc-number">4.5.1.1.</span> <span class="toc-text">Call</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Return"><span class="toc-number">4.5.1.2.</span> <span class="toc-text">Return</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CISC%E6%8C%87%E4%BB%A4%E9%9B%86"><span class="toc-number">4.6.</span> <span class="toc-text">CISC指令集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Move%E6%8C%87%E4%BB%A4"><span class="toc-number">4.6.1.</span> <span class="toc-text">Move指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E5%AF%BB%E5%9D%80%E6%A8%A1%E5%BC%8F"><span class="toc-number">4.6.2.</span> <span class="toc-text">其他寻址模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E5%A2%9E%E9%87%8F%E5%92%8C%E8%87%AA%E5%8A%A8%E5%87%8F%E9%87%8F%E6%96%B9%E5%BC%8F"><span class="toc-number">4.6.2.1.</span> <span class="toc-text">自动增量和自动减量方式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E5%A2%9E%E9%87%8F"><span class="toc-number">4.6.2.1.1.</span> <span class="toc-text">自动增量</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E5%87%8F%E9%87%8F"><span class="toc-number">4.6.2.1.2.</span> <span class="toc-text">自动减量</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%B8%E5%AF%B9%E6%96%B9%E5%BC%8F"><span class="toc-number">4.6.2.2.</span> <span class="toc-text">相对方式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E7%A0%81"><span class="toc-number">4.6.3.</span> <span class="toc-text">条件码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RISC%E4%B8%8ECISC%E5%AF%B9%E6%AF%94"><span class="toc-number">4.7.</span> <span class="toc-text">RISC与CISC对比</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RISC"><span class="toc-number">4.7.1.</span> <span class="toc-text">RISC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CISC"><span class="toc-number">4.7.2.</span> <span class="toc-text">CISC</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 By surtr lafael</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Ding Zhen and his animal friends are watching you</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script defer src="/js/light.js"></script><canvas id="universe"></canvas><script defer src="/js/universe.js"></script><script defer src="/js/sakura.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
